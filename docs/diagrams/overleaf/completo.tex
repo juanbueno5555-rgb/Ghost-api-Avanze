@@ -53,159 +53,165 @@ This document presents the complete set of architecture diagrams for \textbf{Tec
 \draw[flecha] (system) -- node[above, font=\small, text=morado] {R/W} (db);
 \draw[flecha] (system) -- node[right, font=\small, text=morado] {Send OTP} (email);
 \draw[flechaDashed] (email.west) -- ++(-1.8,0) |- (user.south) node[pos=0.28, left, font=\small, text=dorado] {Receives OTP};
-\end{tikzpicture}
+}
 \caption{System context diagram showing the User, the API Gateway with eleven microservices, the PostgreSQL cluster, and the OTP email service.}
 \end{figure}
 
 % ============================================================
-% 2. COMPONENT DIAGRAM
+% 2. COMPONENT DIAGRAM (IMPROVED)
 % ============================================================
 \section{Component Diagram}
 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
-  dom/.style={rectangle, rounded corners=6pt, draw, very thick, minimum width=4.8cm, minimum height=3.5cm, align=center},
-  ms/.style={rectangle, rounded corners=4pt, draw, thick, minimum width=4cm, minimum height=0.5cm, font=\small, align=center},
+  dom/.style={rectangle, rounded corners=6pt, draw, very thick, minimum width=5cm, minimum height=3.2cm, align=center},
+  ms/.style={rectangle, rounded corners=4pt, draw, thick, minimum width=4.2cm, minimum height=0.6cm, font=\small, align=center},
   flecha/.style={->, very thick, >=stealth, color=naranja},
   flechaEvent/.style={->, thick, >=stealth, color=azulClaro, dashed}
 ]
 
-\node[font=\large\bfseries, text=morado, align=center] at (6.5,8) {COMPONENT DIAGRAM --- Tech Cup};
+\node[font=\Large\bfseries, text=morado, align=center] at (6.5,7.5) {COMPONENT DIAGRAM --- Tech Cup};
 
-% API Gateway
-\node[rectangle, rounded corners=8pt, draw=dorado, very thick, fill=black!90, minimum width=4cm, minimum height=1.2cm, text=dorado, font=\bfseries] (api) at (6.5,6.2) {API GATEWAY};
+% API Gateway (top center)
+\node[rectangle, rounded corners=8pt, draw=dorado, very thick, fill=black!90, minimum width=5cm, minimum height=1cm, text=dorado, font=\bfseries] (api) at (6.5,6) {API GATEWAY};
 
-% D1
-\node[dom, fill=morado!8, draw=morado, text=morado] (d1) at (1.5,3.2) {\bfseries IDENTITY \& ACCESS};
-\node[ms, draw=verde!80!black, fill=verde!15, text=verde!80!black] at (1.5,2.4) {Auth Service (21 RF)};
-\node[ms, draw=dorado!80!black, fill=dorado!15, text=dorado!80!black] at (1.5,1.6) {User Profile (11 RF)};
-\node[cylinder, shape border rotate=90, draw, thick, fill=violeta!20, minimum width=1cm, minimum height=0.8cm, aspect=0.3] at (1.5,0.5) {\tiny BD};
+% D1 - left
+\node[dom, fill=morado!8, draw=morado, text=morado] (d1) at (1.5,2.8) {\bfseries IDENTITY \& ACCESS};
+\node[ms, draw=verde!80!black, fill=verde!15, text=verde!80!black] at (1.5,2.2) {Auth Service (21 RF)};
+\node[ms, draw=dorado!80!black, fill=dorado!15, text=dorado!80!black] at (1.5,1.4) {User Profile (11 RF)};
+\node[ms, draw=dorado!80!black, fill=dorado!15, text=dorado!80!black] at (1.5,0.6) {Teams (13 RF)};
 
-% D2
-\node[dom, fill=dorado!8, draw=dorado, text=dorado] (d2) at (6.5,3.2) {\bfseries COMPETITION CORE};
-\node[ms, draw=dorado, fill=dorado!15, text=dorado!80!black] at (6.5,2.4) {Tournaments (20 RF)};
-\node[ms, draw=dorado, fill=dorado!15, text=dorado!80!black] at (6.5,1.6) {Competition + Referee (20 RF)};
-\node[cylinder, shape border rotate=90, draw, thick, fill=violeta!20, minimum width=1cm, minimum height=0.8cm, aspect=0.3] at (6.5,0.5) {\tiny BD};
+% D2 - center
+\node[dom, fill=dorado!8, draw=dorado, text=dorado] (d2) at (6.5,2.8) {\bfseries COMPETITION CORE};
+\node[ms, draw=dorado, fill=dorado!15, text=dorado!80!black] at (6.5,2.2) {Tournaments (20 RF)};
+\node[ms, draw=dorado, fill=dorado!15, text=dorado!80!black] at (6.5,1.4) {Competition (9 RF)};
+\node[ms, draw=dorado, fill=dorado!15, text=dorado!80!black] at (6.5,0.6) {Referee Live (11 RF)};
 
-% D3
-\node[dom, fill=verde!8, draw=verde, text=verde!80!black] (d3) at (11.5,3.2) {\bfseries OPERATIONS \& COM.};
-\node[ms, draw=verde, fill=verde!15, text=verde!80!black] at (11.5,2.4) {Logistics (4 RF)};
-\node[ms, draw=verde, fill=verde!15, text=verde!80!black] at (11.5,1.6) {Comms (9 RF)};
-\node[ms, draw=verde, fill=verde!15, text=verde!80!black] at (11.5,0.8) {Notifications (10 RF)};
+% D3 - right
+\node[dom, fill=verde!8, draw=verde, text=verde!80!black] (d3) at (11.5,2.8) {\bfseries OPERATIONS};
+\node[ms, draw=verde, fill=verde!15, text=verde!80!black] at (11.5,2.2) {Logistics (4 RF)};
+\node[ms, draw=verde, fill=verde!15, text=verde!80!black] at (11.5,1.4) {Comms + Chat (9 RF)};
+\node[ms, draw=verde, fill=verde!15, text=verde!80!black] at (11.5,0.6) {Notifications (10 RF)};
 
-% D4
-\node[dom, fill=violeta!8, draw=violeta, text=violeta] (d4) at (6.5,-1.5) {\bfseries PLATFORM \& INTELLIGENCE};
-\node[ms, draw=violeta, fill=violeta!15, text=violeta!80!black] at (4.5,-1.5) {Statistics (8 RF)};
-\node[ms, draw=violeta, fill=violeta!15, text=violeta!80!black] at (8.5,-1.5) {Audit (11 RF)};
+% D4 - bottom
+\node[dom, fill=violeta!8, draw=violeta, text=violeta, minimum width=10cm, minimum height=1.8cm] (d4) at (6.5,-0.5) {\bfseries PLATFORM \& INTELLIGENCE};
+\node[ms, draw=violeta, fill=violeta!15, text=violeta!80!black, minimum width=3cm] at (4,-0.5) {Statistics (8 RF)};
+\node[ms, draw=violeta, fill=violeta!15, text=violeta!80!black, minimum width=3cm] at (7,-0.5) {Audit (11 RF)};
+\node[ms, draw=violeta!50, fill=violeta!5, text=violeta!60, minimum width=3cm] at (10,-0.5) {API Gateway};
 
-% Event Bus
-\node[rectangle, rounded corners=6pt, draw=azul, thick, fill=azul!6, minimum width=2cm, minimum height=1.5cm, text=azul, font=\bfseries\small] (eb) at (11.5,-1.5) {EVENT BUS\\\tiny RabbitMQ};
+% Event Bus - right side
+\node[rectangle, rounded corners=6pt, draw=azul, thick, fill=azul!6, minimum width=2.5cm, minimum height=2cm, text=azul, font=\bfseries\small] (eb) at (14.5,2.8) {EVENT BUS\\\tiny RabbitMQ/Kafka};
 
-% Flechas API -> Dominios
+% Arrows API -> Domains
 \draw[flecha] (api.south) -- ++(0,-0.3) -| (d1.north);
 \draw[flecha] (api.south) -- (d2.north);
-\draw[flecha] (api.east) -- ++(0.8,0) |- (d3.north);
-\draw[flecha] (api.south) -- ++(0,-1.5) -| (d4.north);
+\draw[flecha] (api.east) -- ++(0.5,0) |- (d3.north);
+\draw[flecha] (api.south) -- ++(0,-1) -| (d4.north);
 
-% Flechas Event Bus
-\draw[flechaEvent] (d2.south) -- ++(0,-0.3) -| node[right, font=\tiny, text=azulClaro] {match events} (eb.north);
-\draw[flechaEvent] (eb.west) -- ++(-1,0) |- node[above, font=\tiny, text=azulClaro] {notifications} (d3.south);
-\end{tikzpicture}
-\caption{Component diagram showing the four domains, API Gateway routing, and event-driven communication.}
+% Arrows Event Bus
+\draw[flechaEvent] (d2.east) -- node[above, font=\tiny, text=azulClaro] {match events} (eb.west);
+\draw[flechaEvent] (d3.east) -- ++(0.3,0) |- node[right, font=\tiny, text=azulClaro] {notifications} (eb.north);
+\draw[flechaEvent] (eb.south) -- ++(0,-0.3) -| node[above, font=\tiny, text=azulClaro] {stats \& audit} (d4.east);
+}
+\caption{Component diagram: four domains with 12 microservices, API Gateway routing, and event bus.}
 \end{figure}
 
 % ============================================================
-% 3. HEXAGONAL ARCHITECTURE
+% 3. HEXAGONAL ARCHITECTURE (IMPROVED)
 % ============================================================
 \section{Hexagonal Architecture: Auth Service}
 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
-  capa/.style={rectangle, rounded corners=6pt, draw, very thick, minimum width=12cm, minimum height=1.5cm, align=center},
-  box/.style={rectangle, rounded corners=4pt, draw, thick, minimum width=2.5cm, minimum height=0.8cm, font=\small, align=center},
+  capa/.style={rectangle, rounded corners=6pt, draw, very thick, minimum width=14cm, minimum height=1.8cm, align=center},
+  box/.style={rectangle, rounded corners=4pt, draw, thick, minimum width=3cm, minimum height=0.9cm, font=\small, align=center},
   flecha/.style={->, thick, >=stealth}
 ]
 
-\node[font=\large\bfseries, text=morado, align=center] at (6,8.5) {HEXAGONAL ARCHITECTURE --- Auth Service};
+\node[font=\large\bfseries, text=morado, align=center] at (7,8) {HEXAGONAL ARCHITECTURE --- Auth Service};
 
 % Input layer
-\node[capa, draw=azul, fill=azul!6, text=azul, dashed] (in) at (6,6.5) {INPUT ADAPTERS};
-\node[box, draw=azul, fill=azul!15] at (2.5,6.5) {REST Controller};
-\node[box, draw=azul, fill=azul!15] at (6,6.5) {JWT Filter};
-\node[box, draw=azul, fill=azul!15] at (9.5,6.5) {Exception Handler};
+\node[capa, draw=azul, fill=azul!6, text=azul, dashed] (in) at (7,6) {INPUT ADAPTERS};
+\node[box, draw=azul, fill=azul!15] at (3.5,6) {REST Controller};
+\node[box, draw=azul, fill=azul!15] at (7,6) {JWT Security Filter};
+\node[box, draw=azul, fill=azul!15] at (10.5,6) {Exception Handler};
 
 % Domain layer
-\node[capa, draw=dorado, fill=dorado!6, text=dorado, minimum height=3cm] (dom) at (6,3.5) {DOMAIN CORE (zero external dependencies)};
-\node[box, draw=dorado, fill=dorado!15, minimum width=3cm] at (2.5,3) {Ports\\ AuthUseCase\\ UserRepository};
-\node[box, draw=dorado, fill=dorado!25, minimum width=3.5cm, minimum height=1.2cm] at (6,3.5) {\bfseries AuthService\\ \tiny register $\cdot$ verify $\cdot$ login};
-\node[box, draw=dorado, fill=dorado!15, minimum width=3cm] at (9.5,3) {Models\\ User, OtpCode\\ RefreshToken (POJOs)};
+\node[capa, draw=dorado, fill=dorado!6, text=dorado, minimum height=3.5cm] (dom) at (7,3) {DOMAIN CORE (zero external dependencies)};
+\node[box, draw=dorado, fill=dorado!15, minimum width=3.2cm, minimum height=1.5cm] at (2.5,2.5) {Ports (Interfaces)\\ AuthUseCase\\ UserRepository\\ EmailSender};
+\node[box, draw=dorado, fill=dorado!25, minimum width=4cm, minimum height=1.5cm] at (7,3) {\bfseries AuthService\\ \small register $\cdot$ verify $\cdot$ login};
+\node[box, draw=dorado, fill=dorado!15, minimum width=3.2cm, minimum height=1.5cm] at (11.5,2.5) {Domain Models\\ User, OtpCode\\ RefreshToken\\ (Plain POJOs)};
 
 % Output layer
-\node[capa, draw=verde, fill=verde!6, text=verde, dashed] (out) at (6,0.5) {OUTPUT ADAPTERS};
-\node[box, draw=verde, fill=verde!15] at (2.5,0.5) {JPA Repository};
-\node[box, draw=verde, fill=verde!15] at (6,0.5) {Email Sender};
-\node[box, draw=verde, fill=verde!15] at (9.5,0.5) {JWT Provider};
+\node[capa, draw=verde, fill=verde!6, text=verde, dashed] (out) at (7,0) {OUTPUT ADAPTERS};
+\node[box, draw=verde, fill=verde!15] at (3.5,0) {JPA Repository};
+\node[box, draw=verde, fill=verde!15] at (7,0) {Email Sender};
+\node[box, draw=verde, fill=verde!15] at (10.5,0) {JWT Provider};
+
+% DB
+\node[cylinder, shape border rotate=90, draw, thick, fill=violeta!20, minimum width=1.5cm, minimum height=1.2cm, aspect=0.3] at (7,-1.2) {PostgreSQL};
 
 \draw[flecha] (in.south) -- (dom.north);
 \draw[flecha] (dom.south) -- (out.north);
+\draw[flecha] (out.south) -- (7,-0.5) -- (7,-0.8);
 
 % Rule
-\node[rectangle, rounded corners=4pt, draw=rojo, thick, fill=rojo!6, minimum width=3.5cm, minimum height=2cm, text=rojo, font=\footnotesize, align=center] at (14.5,3.5) {\bfseries RULE\\[0.1cm] Domain must NOT\\ import Spring,\\ JPA, or Lombok.\\ Only pure Java.};
-\end{tikzpicture}
-\caption{Hexagonal architecture of the Auth Service showing strict separation between domain logic and infrastructure.}
+\node[rectangle, rounded corners=4pt, draw=rojo, thick, fill=rojo!6, minimum width=4cm, minimum height=2.2cm, text=rojo, font=\footnotesize, align=center] at (15.5,3) {\bfseries KEY RULE\\[0.15cm] Domain must NOT\\ import Spring, JPA,\\ or Lombok.\\ Only pure Java\\ standard library.};
+}
+\caption{Hexagonal (Ports \& Adapters) architecture of the Auth Service. The domain core has zero framework dependencies.}
 \end{figure}
 
 % ============================================================
-% 4. SEQUENCE DIAGRAM
+% 4. SEQUENCE DIAGRAM (IMPROVED)
 % ============================================================
 \section{Authentication Sequence}
 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
-  inst/.style={rectangle, rounded corners=4pt, draw, very thick, minimum width=2cm, minimum height=0.7cm, font=\bfseries\small, align=center},
-  flecha/.style={->, thick, >=stealth}
+  inst/.style={rectangle, rounded corners=4pt, draw, very thick, minimum width=2.2cm, minimum height=0.7cm, font=\bfseries\small, align=center},
+  flecha/.style={->, thick, >=stealth},
+  label/.style={font=\tiny, above}
 ]
 
-\node[font=\large\bfseries, text=morado, align=center] at (5.5,10) {AUTHENTICATION SEQUENCE};
+\node[font=\large\bfseries, text=morado, align=center] at (6,9.5) {AUTHENTICATION SEQUENCE};
 
 % Lifelines
-\node[inst, fill=morado, text=white] (u) at (0.5,8.5) {USER};
-\node[inst, fill=dorado!80!black, text=white] (g) at (3,8.5) {GATEWAY};
-\node[inst, fill=dorado!60!black, text=white] (a) at (5.5,8.5) {AUTH};
-\node[inst, fill=violeta, text=white] (d) at (8,8.5) {DB};
-\node[inst, fill=azul!80!black, text=white] (j) at (10.5,8.5) {JWT};
+\node[inst, fill=morado, text=white] (u) at (1,8) {USUARIO};
+\node[inst, fill=dorado!80!black, text=white] (g) at (3.5,8) {GATEWAY};
+\node[inst, fill=dorado!60!black, text=white] (a) at (6,8) {AUTH};
+\node[inst, fill=violeta, text=white] (d) at (8.5,8) {DB};
+\node[inst, fill=azul!80!black, text=white] (j) at (11,8) {JWT};
 
-% Lifelines dashed
-\foreach \x/\col in {0.5/morado,3/dorado,5.5/dorado,8/violeta,10.5/azul} {
-  \draw[dashed, \col!30, thick] (\x,7.8) -- (\x,1.5);
+% Dashed lifelines
+\foreach \x/\col in {1/morado,3.5/dorado,6/dorado,8.5/violeta,11/azul} {
+  \draw[dashed, \col!30, thick] (\x,7.2) -- (\x,1);
 }
 
-% 1. Register
-\node[font=\small\bfseries, text=dorado] at (2,6.8) {1. REGISTRATION};
-\draw[flecha, morado] (0.5,6.3) -- (3,6.3) node[midway, above, font=\tiny] {POST /register};
-\draw[flecha, dorado] (3,5.8) -- (5.5,5.8);
-\draw[flecha, dorado] (5.5,5.3) -- (8,5.3) node[midway, above, font=\tiny] {Save user};
-\draw[flecha, violeta] (8,5) -- (5.5,5);
-\draw[flecha, violeta] (5.5,4.7) -- (3,4.7);
-\draw[flecha, violeta] (3,4.4) -- (0.5,4.4);
+% STEP 1: Registration
+\node[font=\small\bfseries, draw=dorado, fill=dorado!10, rounded corners, minimum width=5cm] at (3.5,6.5) {1. REGISTRATION};
+\draw[flecha, morado] (1,6) -- (3.5,6) node[label] {POST /register (email, pass, name)};
+\draw[flecha, dorado] (3.5,5.5) -- (6,5.5);
+\draw[flecha, dorado] (6,5) -- (8.5,5) node[label] {INSERT user (verified=false)};
+\draw[flecha, verde, dashed] (8.5,4.7) -- (6,4.7);
+\draw[flecha, verde, dashed] (6,4.4) -- (3.5,4.4);
 
-% 2. OTP
-\node[font=\small\bfseries, text=verde] at (2,3.8) {2. OTP VERIFICATION};
-\draw[flecha, morado] (0.5,3.3) -- (3,3.3) node[midway, above, font=\tiny] {POST /verify-otp};
-\draw[flecha, dorado] (3,2.8) -- (5.5,2.8);
-\draw[flecha, dorado] (5.5,2.3) -- (8,2.3) node[midway, above, font=\tiny] {UPDATE verified};
-\draw[flecha, violeta] (8,2) -- (5.5,2);
+% STEP 2: OTP
+\node[font=\small\bfseries, draw=verde, fill=verde!10, rounded corners, minimum width=5cm] at (3.5,3.8) {2. OTP VERIFICATION};
+\draw[flecha, morado] (1,3.3) -- (3.5,3.3) node[label] {POST /verify-otp (token, code)};
+\draw[flecha, dorado] (3.5,2.8) -- (6,2.8);
+\draw[flecha, dorado] (6,2.3) -- (8.5,2.3) node[label] {UPDATE verified=true};
+\draw[flecha, verde, dashed] (8.5,2) -- (6,2);
 
-% 3. Login + JWT
-\node[font=\small\bfseries, text=azul] at (2,1.3) {3. LOGIN + JWT};
-\draw[flecha, morado] (0.5,0.8) -- (3,0.8) node[midway, above, font=\tiny] {POST /login};
-\draw[flecha, azul] (5.5,0.3) -- (10.5,0.3) node[midway, above, font=\tiny] {Generate JWT};
-\node[font=\footnotesize, text=azul, align=center] at (5.5,-0.3) {Access (15min) + Refresh (7d)};
-\end{tikzpicture}
-\caption{Sequence diagram of registration, OTP verification, and JWT issuance.}
+% STEP 3: Login + JWT
+\node[font=\small\bfseries, draw=azul, fill=azul!10, rounded corners, minimum width=5cm] at (3.5,1.5) {3. LOGIN + JWT};
+\draw[flecha, morado] (1,1) -- (3.5,1) node[label] {POST /login (email, pass)};
+\draw[flecha, azul] (6,0.5) -- (11,0.5) node[label, midway] {JWT access + refresh};
+\node[font=\footnotesize, text=azul!80!black, align=center] at (6,0) {Access token: 15 min $\cdot$ Refresh token: 7 days};
+}
+\caption{Authentication sequence: user registration, OTP verification, and JWT issuance.}
 \end{figure}
 
 % ============================================================
@@ -221,35 +227,35 @@ This document presents the complete set of architecture diagrams for \textbf{Tec
   flecha/.style={->, thick, >=stealth, #1}
 ]
 
-\node[font=\large\bfseries, text=morado, align=center] at (6,9.5) {CI/CD DEPLOYMENT PIPELINE};
+\node[font=\large\bfseries, text=morado, align=center] at (6,9) {CI/CD DEPLOYMENT PIPELINE};
 
 % DEV
-\node[env, draw=azul, fill=azul!6, text=azul] (dev) at (6,7.5) {DEVELOPMENT};
-\node[box, draw=azul, fill=azul!15] at (3,7.5) {VS Code / IntelliJ};
-\node[box, draw=azul, fill=azul!15] at (6,7.5) {Docker Desktop};
-\node[box, draw=azul, fill=azul!15] at (9,7.5) {mvn test + JaCoCo};
+\node[env, draw=azul, fill=azul!6, text=azul] (dev) at (6,7) {DEVELOPMENT};
+\node[box, draw=azul, fill=azul!15] at (3,7) {VS Code / IntelliJ};
+\node[box, draw=azul, fill=azul!15] at (6,7) {Docker Desktop};
+\node[box, draw=azul, fill=azul!15] at (9,7) {mvn test + JaCoCo};
 
 \draw[flecha=dorado] (dev.south) -- node[right, font=\small, text=dorado] {git push} ++(0,-0.5);
 
 % CI/CD
-\node[env, draw=dorado, fill=dorado!6, text=dorado!80!black, minimum height=3.5cm] (cicd) at (6,4.5) {GITHUB ACTIONS CI/CD};
-\node[box, draw=dorado, fill=dorado!15] at (2.5,4) {mvn compile};
-\node[box, draw=dorado, fill=dorado!15] at (5,4) {mvn test};
-\node[box, draw=dorado, fill=dorado!15] at (7.5,4) {JaCoCo $>$ 80\%};
-\node[box, draw=verde, fill=verde!15, text=verde!80!black] at (3.5,2.8) {Slack (pass)};
-\node[box, draw=rojo, fill=rojo!6, text=rojo] at (6.5,2.8) {Issue (fail)};
+\node[env, draw=dorado, fill=dorado!6, text=dorado!80!black, minimum height=3.5cm] (cicd) at (6,4) {GITHUB ACTIONS CI/CD};
+\node[box, draw=dorado, fill=dorado!15] at (2.5,3.5) {mvn compile};
+\node[box, draw=dorado, fill=dorado!15] at (5,3.5) {mvn test};
+\node[box, draw=dorado, fill=dorado!15] at (7.5,3.5) {JaCoCo $>$ 80\%};
+\node[box, draw=verde, fill=verde!15, text=verde!80!black] at (3.5,2.5) {Slack (pass)};
+\node[box, draw=rojo, fill=rojo!6, text=rojo] at (6.5,2.5) {Issue (fail)};
 
 \draw[flecha=dorado] (cicd.south) -- ++(0,-0.5);
 
 % QA + PROD
-\node[env, draw=verde, fill=verde!6, text=verde!80!black, minimum width=5.5cm] (qa) at (3,1.2) {QA (Staging)};
-\node[box, draw=verde, fill=verde!15] at (3,1.2) {Spring Boot + PostgreSQL};
-\node[env, draw=violeta, fill=violeta!6, text=violeta, minimum width=5.5cm] (prod) at (9,1.2) {PRODUCTION};
-\node[box, draw=violeta, fill=violeta!15] at (9,1.2) {Spring Boot + PostgreSQL};
+\node[env, draw=verde, fill=verde!6, text=verde!80!black, minimum width=5.5cm] (qa) at (3,1) {QA (Staging)};
+\node[box, draw=verde, fill=verde!15] at (3,1) {Spring Boot + PostgreSQL};
+\node[env, draw=violeta, fill=violeta!6, text=violeta, minimum width=5.5cm] (prod) at (9,1) {PRODUCTION};
+\node[box, draw=violeta, fill=violeta!15] at (9,1) {Spring Boot + PostgreSQL};
 
-\node[font=\small, text=gray!60, align=center] at (6,0) {Each microservice deploys independently. JaCoCo $>$ 80\%. Slack + auto Issues.};
-\end{tikzpicture}
-\caption{CI/CD pipeline from development through GitHub Actions to QA and production environments.}
+\node[font=\small, text=gray!60, align=center] at (6,-0.2) {Each microservice deploys independently. JaCoCo $>$ 80\%. Slack notifications + auto GitHub Issues.};
+}
+\caption{CI/CD pipeline from development through GitHub Actions to QA and production.}
 \end{figure}
 
 \end{document}
