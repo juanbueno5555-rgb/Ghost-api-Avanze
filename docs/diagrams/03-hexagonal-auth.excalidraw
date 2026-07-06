@@ -11,7 +11,6 @@
       "text": "ARQUITECTURA HEXAGONAL — Servicio de Identidad (Auth)",
       "fontSize": 18, "fontFamily": 1, "textAlign": "center"
     },
-
     ═══ LAYER 1: INPUT ADAPTERS ═══
     {
       "id": "input-layer", "type": "rectangle",
@@ -21,16 +20,12 @@
       "roundness": { "type": 3 }, "strokeStyle": "dashed"
     },
     { "id": "input-label", "type": "text", "x": -340, "y": -145, "width": 200, "height": 20, "angle": 0, "strokeColor": "#38BDF8", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 80, "text": "ADAPTADORES DE ENTRADA (Input)", "fontSize": 11, "fontFamily": 1, "textAlign": "center" },
-
     { "id": "rest-controller", "type": "rectangle", "x": -300, "y": -120, "width": 180, "height": 50, "angle": 0, "strokeColor": "#0EA5E9", "backgroundColor": "#0C4A6E", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "rest-label", "type": "text", "x": -290, "y": -115, "width": 160, "height": 40, "angle": 0, "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "🌐 AuthController\n(REST endpoints)", "fontSize": 11, "fontFamily": 1, "textAlign": "center" },
-
     { "id": "security-filter", "type": "rectangle", "x": -70, "y": -120, "width": 180, "height": 50, "angle": 0, "strokeColor": "#0EA5E9", "backgroundColor": "#0C4A6E", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "sec-label", "type": "text", "x": -60, "y": -115, "width": 160, "height": 40, "angle": 0, "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "🔒 JwtAuthFilter\n(Seguridad)", "fontSize": 11, "fontFamily": 1, "textAlign": "center" },
-
     { "id": "exception-handler", "type": "rectangle", "x": 160, "y": -120, "width": 150, "height": 50, "angle": 0, "strokeColor": "#0EA5E9", "backgroundColor": "#0C4A6E", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "exc-label", "type": "text", "x": 170, "y": -115, "width": 130, "height": 40, "angle": 0, "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "⚠️ GlobalException\nHandler", "fontSize": 11, "fontFamily": 1, "textAlign": "center" },
-
     ═══ LAYER 2: DOMAIN (CORE) ═══
     {
       "id": "domain-layer", "type": "rectangle",
@@ -40,25 +35,19 @@
       "roundness": { "type": 3 }
     },
     { "id": "domain-label", "type": "text", "x": -340, "y": -15, "width": 300, "height": 20, "angle": 0, "strokeColor": "#F59E0B", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "🧠 DOMINIO (Core — CERO dependencias externas)", "fontSize": 12, "fontFamily": 1, "textAlign": "center" },
-
     ─── Ports ──
     { "id": "port-in", "type": "rectangle", "x": -300, "y": 15, "width": 200, "height": 35, "angle": 0, "strokeColor": "#F59E0B", "backgroundColor": "#78350F", "fillStyle": "solid", "strokeWidth": 1, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "port-in-t", "type": "text", "x": -290, "y": 20, "width": 180, "height": 25, "angle": 0, "strokeColor": "#FDE047", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "📥 AuthUseCase (puerto entrada)", "fontSize": 10, "fontFamily": 1, "textAlign": "center" },
-
     { "id": "port-out", "type": "rectangle", "x": -300, "y": 55, "width": 200, "height": 35, "angle": 0, "strokeColor": "#F59E0B", "backgroundColor": "#78350F", "fillStyle": "solid", "strokeWidth": 1, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "port-out-t", "type": "text", "x": -290, "y": 60, "width": 180, "height": 25, "angle": 0, "strokeColor": "#FDE047", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "📤 UserRepository (puerto salida)", "fontSize": 10, "fontFamily": 1, "textAlign": "center" },
-
     ─── Domain service ──
     { "id": "domain-svc", "type": "rectangle", "x": -50, "y": 15, "width": 200, "height": 75, "angle": 0, "strokeColor": "#F59E0B", "backgroundColor": "#B45309", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "domain-svc-t", "type": "text", "x": -40, "y": 25, "width": 180, "height": 55, "angle": 0, "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "⚙️ AuthService\n(Caso de uso puro)\nregister() verify() login()", "fontSize": 10, "fontFamily": 1, "textAlign": "center" },
-
     ─── Domain model ──
     { "id": "domain-model", "type": "rectangle", "x": 200, "y": 15, "width": 120, "height": 75, "angle": 0, "strokeColor": "#F59E0B", "backgroundColor": "#78350F", "fillStyle": "solid", "strokeWidth": 1, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "domain-model-t", "type": "text", "x": 210, "y": 25, "width": 100, "height": 55, "angle": 0, "strokeColor": "#FDE047", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "📦 Modelos\nUser (POJO)\nOtpCode (POJO)\nRefreshToken", "fontSize": 9, "fontFamily": 1, "textAlign": "center" },
-
     ─── Other ports label ──
     { "type": "text", "x": -280, "y": 100, "width": 600, "height": 30, "angle": 0, "strokeColor": "#FDE047", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 60, "text": "Otros puertos: OtpCodeRepository, RefreshTokenRepository, EmailSender, PasswordEncoder, JwtTokenService", "fontSize": 8, "fontFamily": 1, "textAlign": "center" },
-
     ═══ LAYER 3: OUTPUT ADAPTERS ═══
     {
       "id": "output-layer", "type": "rectangle",
@@ -68,30 +57,23 @@
       "roundness": { "type": 3 }, "strokeStyle": "dashed"
     },
     { "id": "output-label", "type": "text", "x": -340, "y": 175, "width": 300, "height": 20, "angle": 0, "strokeColor": "#34D399", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 80, "text": "ADAPTADORES DE SALIDA (Output)", "fontSize": 11, "fontFamily": 1, "textAlign": "center" },
-
     { "id": "jpa-adapter", "type": "rectangle", "x": -300, "y": 200, "width": 160, "height": 40, "angle": 0, "strokeColor": "#10B981", "backgroundColor": "#064E3B", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "jpa-adapter-t", "type": "text", "x": -290, "y": 207, "width": 140, "height": 25, "angle": 0, "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "🗄️ JPA Repository Adapter", "fontSize": 9, "fontFamily": 1, "textAlign": "center" },
-
     { "id": "email-adapter", "type": "rectangle", "x": -100, "y": 200, "width": 140, "height": 40, "angle": 0, "strokeColor": "#10B981", "backgroundColor": "#064E3B", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "email-adapter-t", "type": "text", "x": -90, "y": 207, "width": 120, "height": 25, "angle": 0, "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "📧 ConsoleEmailAdapter", "fontSize": 9, "fontFamily": 1, "textAlign": "center" },
-
     { "id": "jwt-adapter", "type": "rectangle", "x": 80, "y": 200, "width": 150, "height": 40, "angle": 0, "strokeColor": "#10B981", "backgroundColor": "#064E3B", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "roundness": { "type": 3 } },
     { "id": "jwt-adapter-t", "type": "text", "x": 90, "y": 207, "width": 130, "height": 25, "angle": 0, "strokeColor": "#ffffff", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "🔑 JwtTokenServiceAdapter", "fontSize": 9, "fontFamily": 1, "textAlign": "center" },
-
     ─── DB cylinders ──
     { "id": "db1", "type": "ellipse", "x": -270, "y": 250, "width": 50, "height": 15, "angle": 0, "strokeColor": "#7C3AED", "backgroundColor": "#3B0764", "fillStyle": "solid", "strokeWidth": 1, "roughness": 1, "opacity": 80 },
     { "id": "db1-r", "type": "rectangle", "x": -270, "y": 258, "width": 50, "height": 30, "angle": 0, "strokeColor": "#7C3AED", "backgroundColor": "#3B0764", "fillStyle": "solid", "strokeWidth": 1, "roughness": 1, "opacity": 80 },
     { "id": "db1-b", "type": "ellipse", "x": -270, "y": 278, "width": 50, "height": 15, "angle": 0, "strokeColor": "#7C3AED", "backgroundColor": "#3B0764", "fillStyle": "solid", "strokeWidth": 1, "roughness": 1, "opacity": 80 },
     { "id": "db1-t", "type": "text", "x": -268, "y": 262, "width": 45, "height": 20, "angle": 0, "strokeColor": "#C084FC", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 80, "text": "PostgreSQL", "fontSize": 7, "fontFamily": 1, "textAlign": "center" },
-
     ─── ARROWS ──
     { "id": "arrow-rest", "type": "arrow", "x": -210, "y": -65, "width": 160, "height": 75, "angle": 0, "strokeColor": "#38BDF8", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 1, "roughness": 1, "opacity": 60, "startArrowhead": null, "endArrowhead": "triangle", "points": [[0,0],[80,35],[160,75]] },
     { "id": "arrow-domain-out", "type": "arrow", "x": 100, "y": 95, "width": 100, "height": 105, "angle": 0, "strokeColor": "#34D399", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 1, "roughness": 1, "opacity": 60, "startArrowhead": null, "endArrowhead": "triangle", "points": [[0,0],[20,50],[100,105]] },
-
     ─── LOCK ICON ──
     { "type": "rectangle", "x": 370, "y": -10, "width": 200, "height": 130, "angle": 0, "strokeColor": "#EF4444", "backgroundColor": "#7F1D1D33", "fillStyle": "solid", "strokeWidth": 2, "roughness": 2, "opacity": 100, "roundness": { "type": 3 } },
     { "type": "text", "x": 380, "y": 0, "width": 180, "height": 110, "angle": 0, "strokeColor": "#EF4444", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 100, "text": "🔒 REGLA SAGRADA\n\nEl DOMINIO NO puede\nimportar:\n· Spring Framework\n· Jakarta/JPA\n· Lombok\n· Dependencias externas\n\nSolo Java puro + stdlib", "fontSize": 9, "fontFamily": 1, "textAlign": "center" },
-
     ─── MAPPERS ──
     { "type": "rectangle", "x": -300, "y": 240, "width": 130, "height": 25, "angle": 0, "strokeColor": "#10B981", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 1, "roughness": 1, "opacity": 60, "roundness": { "type": 3 }, "strokeStyle": "dotted" },
     { "type": "text", "x": -295, "y": 244, "width": 120, "height": 18, "angle": 0, "strokeColor": "#34D399", "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2, "roughness": 1, "opacity": 60, "text": "UserMapper ↔ EntityMapper", "fontSize": 7, "fontFamily": 1, "textAlign": "center" }
