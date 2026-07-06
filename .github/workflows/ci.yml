@@ -36,8 +36,108 @@ jobs:
           cache: maven
 
       - name: Build and test
+        id: build
         run: mvn clean verify --batch-mode
+        continue-on-error: true
 
-      - name: JaCoCo report
+      - name: JaCoCo coverage report
+        if: steps.build.outcome == 'success'
         run: |
-          find . -path "*/target/site/jacoco/index.html" -exec echo "Report: {}" \;
+          echo "## 📊 Cobertura JaCoCo" >> $GITHUB_STEP_SUMMARY
+          find . -path "*/target/site/jacoco/index.html" -exec echo "Report found: {}" \;
+          find . -path "*/target/site/jacoco/index.html" -exec echo "✅ Coverage report available" >> $GITHUB_STEP_SUMMARY \;
+
+      # ─── NOTIFICACIÓN A SLACK ───────────────────────────────
+      - name: Notify Slack on success
+        if: steps.build.outcome == 'success'
+        uses: slackapi/slack-github-action@v2
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "✅ *Build pasó* — ${{ github.repository }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "✅ *Build exitoso* en `${{ github.ref_name }}`\n• Pipeline: `${{ github.workflow }}`\n• Commit: `${{ github.sha }}`\n• Autor: ${{ github.actor }}"
+                  }
+                }
+              ]
+            }
+        continue-on-error: true
+
+      - name: Notify Slack on failure
+        if: steps.build.outcome == 'failure'
+        uses: slackapi/slack-github-action@v2
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "🚨 *Build FALLÓ* — ${{ github.repository }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "🚨 *Build falló* en `${{ github.ref_name }}`\n• Pipeline: `${{ github.workflow }}`\n• Commit: `${{ github.sha }}`\n• Autor: ${{ github.actor }}\n• <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Ver detalles>"
+                  }
+                }
+              ]
+            }
+        continue-on-error: true
+
+      # ─── ISSUE AUTOMÁTICO EN FALLO ─────────────────────────
+      - name: Create issue on build failure
+        if: steps.build.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: run } = await github.rest.actions.getWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId
+            });
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Build falló — ${context.sha.substring(0, 7)}`,
+              body: `## 🚨 Build automático falló
+
+            **Pipeline**: ${context.workflow}
+            **Branch**: ${context.ref}
+            **Commit**: ${context.sha}
+            **Autor**: ${context.actor}
+
+            ### Detalles
+            - **Run ID**: ${context.runId}
+            - **Trigger**: ${context.eventName}
+
+            [Ver detalles del build](${run.html_url})
+
+            ### Posibles causas
+            - Error de compilación
+            - Tests unitarios fallidos
+            - Error de integración
+            - Problema de dependencias
+
+            ---
+            *Issue creado automáticamente por CI/CD*`,
+              labels: ['bug', 'automated']
+            });
+
+      # ─── STATUS CHECK ──────────────────────────────────────
+      - name: Mark build status
+        if: always()
+        run: |
+          if [ "${{ steps.build.outcome }}" == "success" ]; then
+            echo "✅ Build completed successfully"
+            exit 0
+          else
+            echo "❌ Build failed"
+            exit 1
+          fi
