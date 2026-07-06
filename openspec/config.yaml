@@ -1,0 +1,20 @@
+project: Ghost API (Tech Cup)
+stack: Java 17 + Spring Boot 3.2 + Maven
+strict_tdd: false
+testing:
+  unit: JUnit 5 + Mockito
+  coverage: JaCoCo
+  integration: Spring Boot Test
+  e2e: not configured
+phase_rules:
+  propose: standard
+  spec: standard
+  design: standard
+  tasks: standard
+  apply: standard
+  verify: standard
+  archive: standard
+context: |
+  Monorepo for Tech Cup tournament management system.
+  12 microservices: Auth, Users, Teams, Tournaments, Competition,
+  Stats, Comms, Notifications, Audit, Logistics, Referee, API Gateway.
