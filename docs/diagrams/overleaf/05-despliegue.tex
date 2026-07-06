@@ -1,6 +1,20 @@
 % Diagrama de Despliegue - CI/CD Tech Cup
 \documentclass{standalone}
 \usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[svgnames]{xcolor}
+\usetikzlibrary{shapes, arrows, positioning, fit}
+
+\definecolor{morado}{HTML}{4C1D95}
+\definecolor{dorado}{HTML}{F59E0B}
+\definecolor{violeta}{HTML}{7C3AED}
+\definecolor{verde}{HTML}{10B981}
+\definecolor{naranja}{HTML}{F97316}
+\definecolor{azul}{HTML}{0EA5E9}
+\definecolor{azulClaro}{HTML}{38BDF8}
+\definecolor{verdeClaro}{HTML}{34D399}
+\definecolor{rojo}{HTML}{EF4444}
+\usepackage{tikz}
 \usetikzlibrary{shapes, arrows, positioning}
 
 \begin{document}
@@ -11,7 +25,7 @@
 ]
 
 % Titulo
-\node[align=center, font=\large\bfseries, text=#4C1D95] at (6,10) {DIAGRAMA DE DESPLIEGUE --- CI/CD Tech Cup};
+\node[align=center, font=\large\bfseries, text=morado] at (6,10) {DIAGRAMA DE DESPLIEGUE --- CI/CD Tech Cup};
 
 % DEV
 \node[env, draw=#2563EB, fill=#1E3A5F33, text=#60A5FA] (dev) at (6,8) {DEV --- Ambiente Local};
@@ -20,27 +34,27 @@
 \node[box, draw=#60A5FA, fill=#1E3A5F, text=#93C5FD] at (9.5,8) {mvn test + JaCoCo};
 
 % Flecha
-\draw[flecha=#F59E0B] (dev.south) -- node[right, font=\small, text=#F59E0B] {git push} ++(0,-0.5);
+\draw[flecha=dorado] (dev.south) -- node[right, font=\small, text=dorado] {git push} ++(0,-0.5);
 
 % CI/CD
-\node[env, draw=#F59E0B, fill=#42200633, text=#FCD34D, minimum height=3cm] (cicd) at (6,5) {GITHUB ACTIONS --- CI/CD PIPELINE};
-\node[box, draw=#F59E0B, fill=#78350F, text=white] at (2.5,4.5) {mvn compile};
-\node[box, draw=#F59E0B, fill=#78350F, text=white] at (5,4.5) {mvn test};
-\node[box, draw=#F59E0B, fill=#78350F, text=white] at (7.5,4.5) {JaCoCo > 80\%};
-\node[box, draw=#10B981, fill=#064E3B, text=#34D399] at (3.5,3.5) {Slack (exito)};
-\node[box, draw=#EF4444, fill=#7F1D1D, text=#FCA5A5] at (6.5,3.5) {Issue GitHub (fallo)};
+\node[env, draw=dorado, fill=#42200633, text=#FCD34D, minimum height=3cm] (cicd) at (6,5) {GITHUB ACTIONS --- CI/CD PIPELINE};
+\node[box, draw=dorado, fill=#78350F, text=white] at (2.5,4.5) {mvn compile};
+\node[box, draw=dorado, fill=#78350F, text=white] at (5,4.5) {mvn test};
+\node[box, draw=dorado, fill=#78350F, text=white] at (7.5,4.5) {JaCoCo > 80\%};
+\node[box, draw=verde, fill=#064E3B, text=verdeClaro] at (3.5,3.5) {Slack (exito)};
+\node[box, draw=rojo, fill=#7F1D1D, text=#FCA5A5] at (6.5,3.5) {Issue GitHub (fallo)};
 
 % Flechas a QA y PROD
-\draw[flecha=#F59E0B] (cicd.south) -- node[left, font=\small, text=#F59E0B] {Deploy} ++(-2,-0.5);
-\draw[flecha=#F59E0B] (cicd.south) -- node[right, font=\small, text=#F59E0B] {Deploy} ++(2,-0.5);
+\draw[flecha=dorado] (cicd.south) -- node[left, font=\small, text=dorado] {Deploy} ++(-2,-0.5);
+\draw[flecha=dorado] (cicd.south) -- node[right, font=\small, text=dorado] {Deploy} ++(2,-0.5);
 
 % QA
-\node[env, draw=#10B981, fill=#064E3B33, text=#34D399, minimum width=5cm] (qa) at (3.5,2.5) {QA --- Pruebas};
-\node[box, draw=#10B981, fill=#064E3B, text=white, minimum width=2cm] at (3.5,2.5) {Spring Boot + Postgres};
+\node[env, draw=verde, fill=#064E3B33, text=verdeClaro, minimum width=5cm] (qa) at (3.5,2.5) {QA --- Pruebas};
+\node[box, draw=verde, fill=#064E3B, text=white, minimum width=2cm] at (3.5,2.5) {Spring Boot + Postgres};
 
 % PROD
-\node[env, draw=#7C3AED, fill=#1A032E33, text=#A78BFA, minimum width=5cm] (prod) at (8.5,2.5) {PROD --- Produccion};
-\node[box, draw=#7C3AED, fill=#3B0764, text=white, minimum width=2cm] at (8.5,2.5) {Spring Boot + Postgres};
+\node[env, draw=violeta, fill=#1A032E33, text=#A78BFA, minimum width=5cm] (prod) at (8.5,2.5) {PROD --- Produccion};
+\node[box, draw=violeta, fill=#3B0764, text=white, minimum width=2cm] at (8.5,2.5) {Spring Boot + Postgres};
 
 % Nota
 \node[align=center, font=\tiny, text=#94A3B8] at (6,1) {Cada microservicio se despliega independientemente. CI/CD validado con JaCoCo (>80\% cobertura). Slack + Issues automaticos.};

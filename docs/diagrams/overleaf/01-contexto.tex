@@ -1,14 +1,25 @@
 % Diagrama de Contexto - Tech Cup
-% Copia esto en Overleaf (overleaf.com) y compila con XeLaTeX
+% Copia esto en Overleaf y compila con PDFLaTeX
 
 \documentclass{standalone}
 \usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[svgnames]{xcolor}
 \usetikzlibrary{shapes, arrows, positioning}
-\usepackage{fontspec}
+
+% Colores Tech Cup
+\definecolor{morado}{HTML}{4C1D95}
+\definecolor{dorado}{HTML}{F59E0B}
+\definecolor{violeta}{HTML}{7C3AED}
+\definecolor{verde}{HTML}{10B981}
+\definecolor{naranja}{HTML}{F97316}
+\definecolor{azul}{HTML}{0EA5E9}
+\definecolor{azulClaro}{HTML}{38BDF8}
+\definecolor{verdeClaro}{HTML}{34D399}
 
 \begin{document}
 \begin{tikzpicture}[
-  nodo/.style={draw, thick, minimum width=2.5cm, minimum height=1cm, align=center, font=\small},
+  nodo/.style={draw, thick, minimum width=2.5cm, minimum height=1cm, align=center},
   actor/.style={ellipse, draw, thick, minimum width=2cm, minimum height=2cm, fill=#1, text=white},
   sistema/.style={rectangle, rounded corners, draw, thick, minimum width=5cm, minimum height=3.5cm, fill=#1},
   bd/.style={cylinder, shape border rotate=90, draw, thick, minimum width=2cm, minimum height=2.5cm, fill=#1, text=white, aspect=0.3},

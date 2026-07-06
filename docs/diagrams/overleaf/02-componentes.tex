@@ -1,6 +1,20 @@
 % Diagrama de Componentes - Tech Cup
 \documentclass{standalone}
 \usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[svgnames]{xcolor}
+\usetikzlibrary{shapes, arrows, positioning, fit}
+
+\definecolor{morado}{HTML}{4C1D95}
+\definecolor{dorado}{HTML}{F59E0B}
+\definecolor{violeta}{HTML}{7C3AED}
+\definecolor{verde}{HTML}{10B981}
+\definecolor{naranja}{HTML}{F97316}
+\definecolor{azul}{HTML}{0EA5E9}
+\definecolor{azulClaro}{HTML}{38BDF8}
+\definecolor{verdeClaro}{HTML}{34D399}
+\definecolor{rojo}{HTML}{EF4444}
+\usepackage{tikz}
 \usetikzlibrary{shapes, arrows, positioning, fit}
 
 \begin{document}
@@ -12,54 +26,54 @@
 ]
 
 % Titulo
-\node[align=center, font=\large\bfseries, text=#4C1D95] at (9,12) {DIAGRAMA DE COMPONENTES GENERAL --- Tech Cup};
+\node[align=center, font=\large\bfseries, text=morado] at (9,12) {DIAGRAMA DE COMPONENTES GENERAL --- Tech Cup};
 
 % API Gateway
-\node[rectangle, rounded corners, draw=#F59E0B, thick, fill=#0F172A, minimum width=4cm, minimum height=1.5cm, text=#F59E0B, font=\bfseries] (api) at (6,9.5) {API GATEWAY\\[0.1cm]\small Enrutamiento + JWT Auth};
+\node[rectangle, rounded corners, draw=dorado, thick, fill=#0F172A, minimum width=4cm, minimum height=1.5cm, text=dorado, font=\bfseries] (api) at (6,9.5) {API GATEWAY\\[0.1cm]\small Enrutamiento + JWT Auth};
 
 % Usuario
-\node[ellipse, draw, thick, fill=#4C1D95, minimum width=1.5cm, minimum height=1.5cm, text=white, font=\bfseries\small] (user) at (1.5,6.5) {USUARIO};
+\node[ellipse, draw, thick, fill=morado, minimum width=1.5cm, minimum height=1.5cm, text=white, font=\bfseries\small] (user) at (1.5,6.5) {USUARIO};
 
 % Flecha Usuario -> API GW
-\draw[flecha=#F97316] (user) -- (api);
+\draw[flecha=naranja] (user) -- (api);
 
 % D1
-\node[dom=#1E1035, text=#4C1D95] (d1) at (2,4.5) {D1 --- IDENTIDAD Y PERSONAS};
-\node[ms, draw=#10B981, fill=#064E3B, text=#10B981] at (2,3.2) {Servicio de Identidad (21 RF)};
-\node[ms, draw=#F59E0B, fill=#451A03, text=#F59E0B] at (2,2.3) {Usuarios y Jugadores (11 RF)};
-\node[ms, draw=#F59E0B, fill=#451A03, text=#F59E0B] at (2,1.4) {Servicio de Equipos (13 RF)};
+\node[dom=#1E1035, text=morado] (d1) at (2,4.5) {D1 --- IDENTIDAD Y PERSONAS};
+\node[ms, draw=verde, fill=#064E3B, text=verde] at (2,3.2) {Servicio de Identidad (21 RF)};
+\node[ms, draw=dorado, fill=#451A03, text=dorado] at (2,2.3) {Usuarios y Jugadores (11 RF)};
+\node[ms, draw=dorado, fill=#451A03, text=dorado] at (2,1.4) {Servicio de Equipos (13 RF)};
 \node[db=#3B0764] at (2,0.3) {BD x3};
 
 % D2
-\node[dom=#1E1205, text=#F59E0B] (d2) at (6,4.5) {D2 --- TORNEO Y COMPETENCIA};
-\node[ms, draw=#F59E0B, fill=#451A03, text=#F59E0B] at (6,3.2) {Servicio de Torneos (20 RF)};
-\node[ms, draw=#F59E0B, fill=#451A03, text=#F59E0B] at (6,2.0) {Servicio de Competencia (20 RF)\\ \tiny Partidos + Arbitraje en Vivo};
+\node[dom=#1E1205, text=dorado] (d2) at (6,4.5) {D2 --- TORNEO Y COMPETENCIA};
+\node[ms, draw=dorado, fill=#451A03, text=dorado] at (6,3.2) {Servicio de Torneos (20 RF)};
+\node[ms, draw=dorado, fill=#451A03, text=dorado] at (6,2.0) {Servicio de Competencia (20 RF)\\ \tiny Partidos + Arbitraje en Vivo};
 \node[db=#3B0764] at (6,0.3) {BD x2};
 
 % D3
-\node[dom=#052E16, text=#10B981] (d3) at (10,4.5) {D3 --- OPERACIONES Y COM.};
-\node[ms, draw=#10B981, fill=#064E3B, text=#10B981] at (10,3.2) {Servicio de Logistica (4 RF)};
-\node[ms, draw=#10B981, fill=#064E3B, text=#10B981] at (10,2.3) {Comunicaciones (9 RF)};
-\node[ms, draw=#10B981, fill=#064E3B, text=#10B981] at (10,1.4) {Notificaciones (10 RF)};
+\node[dom=#052E16, text=verde] (d3) at (10,4.5) {D3 --- OPERACIONES Y COM.};
+\node[ms, draw=verde, fill=#064E3B, text=verde] at (10,3.2) {Servicio de Logistica (4 RF)};
+\node[ms, draw=verde, fill=#064E3B, text=verde] at (10,2.3) {Comunicaciones (9 RF)};
+\node[ms, draw=verde, fill=#064E3B, text=verde] at (10,1.4) {Notificaciones (10 RF)};
 \node[db=#3B0764] at (10,0.3) {BD x3};
 
 % Flechas API -> Dominios
-\draw[flecha=#F97316] (api.south) -- ++(0,-0.5) -| (d1.north);
-\draw[flecha=#F97316] (api.south) -- (d2.north);
-\draw[flecha=#F97316] (api.east) -- ++(0.5,0) |- (d3.north);
-\draw[flecha=#F97316] (api.south) -- ++(0,-1.2) -| (6, -0.5) -- (6,-0.8);
+\draw[flecha=naranja] (api.south) -- ++(0,-0.5) -| (d1.north);
+\draw[flecha=naranja] (api.south) -- (d2.north);
+\draw[flecha=naranja] (api.east) -- ++(0.5,0) |- (d3.north);
+\draw[flecha=naranja] (api.south) -- ++(0,-1.2) -| (6, -0.5) -- (6,-0.8);
 
 % D4
-\node[dom=#1A032E, text=#7C3AED] (d4) at (6,-1.5) {D4 --- PLATAFORMA E INTELIGENCIA};
-\node[ms, draw=#7C3AED, fill=#3B0764, text=#C084FC] at (6,-2.5) {Servicio de Estadisticas (8 RF)};
-\node[ms, draw=#7C3AED, fill=#3B0764, text=#C084FC] at (6,-3.5) {Servicio de Auditoria (11 RF)};
+\node[dom=#1A032E, text=violeta] (d4) at (6,-1.5) {D4 --- PLATAFORMA E INTELIGENCIA};
+\node[ms, draw=violeta, fill=#3B0764, text=#C084FC] at (6,-2.5) {Servicio de Estadisticas (8 RF)};
+\node[ms, draw=violeta, fill=#3B0764, text=#C084FC] at (6,-3.5) {Servicio de Auditoria (11 RF)};
 
 % Event Bus
-\node[rectangle, rounded corners, draw=#0EA5E9, thick, fill=#082F49, minimum width=3cm, minimum height=4cm, text=#38BDF8, font=\bfseries\small] (eb) at (13,2) {EVENT BUS\\[0.2cm]\small RabbitMQ/Kafka\\[0.3cm]\tiny Eventos:\\ Goles, Tarjetas,\\ Sanciones,\\ Notificaciones};
+\node[rectangle, rounded corners, draw=azul, thick, fill=#082F49, minimum width=3cm, minimum height=4cm, text=azulClaro, font=\bfseries\small] (eb) at (13,2) {EVENT BUS\\[0.2cm]\small RabbitMQ/Kafka\\[0.3cm]\tiny Eventos:\\ Goles, Tarjetas,\\ Sanciones,\\ Notificaciones};
 
 % Flechas Event Bus
-\draw[flecha=#38BDF8] (d2.east) -- node[above, font=\tiny, text=#38BDF8] {Publican eventos} (eb.west);
-\draw[flecha=#38BDF8] (eb.west) -- ++(0,-0.5) -- node[above, font=\tiny, text=#38BDF8] {} (10,1.3) -- (10,1);
+\draw[flecha=azulClaro] (d2.east) -- node[above, font=\tiny, text=azulClaro] {Publican eventos} (eb.west);
+\draw[flecha=azulClaro] (eb.west) -- ++(0,-0.5) -- node[above, font=\tiny, text=azulClaro] {} (10,1.3) -- (10,1);
 
 \end{tikzpicture}
 \end{document}

@@ -1,6 +1,19 @@
 % Diagrama de Secuencia - Registro, OTP, Login, JWT
 \documentclass{standalone}
 \usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[svgnames]{xcolor}
+\usetikzlibrary{shapes, arrows, positioning, fit}
+
+\definecolor{morado}{HTML}{4C1D95}
+\definecolor{dorado}{HTML}{F59E0B}
+\definecolor{violeta}{HTML}{7C3AED}
+\definecolor{verde}{HTML}{10B981}
+\definecolor{naranja}{HTML}{F97316}
+\definecolor{azul}{HTML}{0EA5E9}
+\definecolor{azulClaro}{HTML}{38BDF8}
+\definecolor{verdeClaro}{HTML}{34D399}
+\definecolor{rojo}{HTML}{EF4444}
 \usetikzlibrary{positioning}
 \usepackage{pgf-umlsd}
 
@@ -8,7 +21,7 @@
 \begin{sequencediagram}
 \tikzstyle{inststyle}+=[rounded corners, font=\small\bfseries]
 
-\newthread[#4C1D95]{user}{USUARIO}
+\newthread[morado]{user}{USUARIO}
 \newinst[#B45309]{gateway}{API GATEWAY}
 \newinst[#78350F]{auth}{AUTH SERVICE}
 \newinst[#3B0764]{db}{BD AUTH}
@@ -25,7 +38,7 @@
 \begin{call}{auth}{Generar OTP 6 digitos}{auth}{}
 \end{call}
 \postlevel
-\draw[#10B981, dashed, ->, >=stealth] (user.south) -- ++(0,-0.3) node[right, font=\small, text=#10B981] {2. OTP enviado al email};
+\draw[verde, dashed, ->, >=stealth] (user.south) -- ++(0,-0.3) node[right, font=\small, text=verde] {2. OTP enviado al email};
 \postlevel
 
 \begin{call}{user}{3. POST /verify-otp (token, codigo)}{gateway}{}
@@ -44,7 +57,7 @@
 \end{call}
 \postlevel
 
-\draw[#0EA5E9, ->, >=stealth] (jwt.south) -- ++(0,-0.5) node[right, font=\small, text=#0EA5E9] {JWT devuelto al usuario};
+\draw[azul, ->, >=stealth] (jwt.south) -- ++(0,-0.5) node[right, font=\small, text=azul] {JWT devuelto al usuario};
 \end{sequencediagram}
 
 \end{document}
