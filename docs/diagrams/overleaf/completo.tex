@@ -1,0 +1,255 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,geometry,xcolor}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usetikzlibrary{shapes,arrows,positioning,shapes.geometric,fit}
+\geometry{margin=2.5cm}
+\hypersetup{pdftitle={Tech Cup: Architecture Diagrams}, pdfauthor={Ghost API Team}}
+\definecolor{morado}{HTML}{4C1D95}
+\definecolor{dorado}{HTML}{F59E0B}
+\definecolor{violeta}{HTML}{7C3AED}
+\definecolor{verde}{HTML}{10B981}
+\definecolor{naranja}{HTML}{F97316}
+\definecolor{azul}{HTML}{0EA5E9}
+\definecolor{azulClaro}{HTML}{38BDF8}
+\definecolor{verdeClaro}{HTML}{34D399}
+\definecolor{rojo}{HTML}{EF4444}
+\title{Tech Cup: Architecture Diagrams}
+\author{Ghost API Team}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document presents the complete set of architecture diagrams for \textbf{Tech Cup}, a distributed platform built upon an API Gateway and eleven independent microservices. It covers the system context, component organisation, hexagonal architecture of the Auth service, authentication sequence, and CI/CD deployment pipeline.
+\end{abstract}
+
+% ============================================================
+% 1. CONTEXT DIAGRAM
+% ============================================================
+\section{Context Diagram}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  actor/.style={ellipse, draw, very thick, minimum width=2.2cm, minimum height=1.8cm, fill=morado, text=white, font=\bfseries\small, align=center},
+  sistema/.style={rectangle, rounded corners=8pt, draw, very thick, minimum width=5.2cm, minimum height=3.2cm, fill=dorado, align=center},
+  bd/.style={cylinder, shape border rotate=90, draw, very thick, minimum width=2.1cm, minimum height=2.4cm, fill=violeta, text=white, font=\bfseries\small, align=center, aspect=0.3},
+  email/.style={rectangle, rounded corners=6pt, draw, very thick, fill=verde, text=white, font=\bfseries\small, align=center, minimum width=3.2cm, minimum height=1cm},
+  flecha/.style={->, very thick, >=stealth, color=morado},
+  flechaDashed/.style={->, very thick, dashed, >=stealth, color=dorado}
+]
+\node[font=\large\bfseries, text=morado, align=center] at (5.5,7.2) {CONTEXT DIAGRAM --- Tech Cup};
+\node[font=\small\itshape, text=dorado, align=center] at (5.5,6.5) {Each microservice owns its own independent PostgreSQL database};
+
+\node[actor] (user) at (0.5,3.5) {USER};
+\node[sistema] (system) at (5.5,3.5) {\Large\bfseries TECH CUP\\[0.25cm]\normalsize API Gateway + 11 Microservices};
+\node[bd] (db) at (10.2,3.5) {\bfseries PostgreSQL\\[0.15cm]\small $\times$12 (1 per MS)};
+\node[email] (email) at (5.5,0.3) {\bfseries Email (OTP)};
+
+\draw[flecha] (user) -- node[above, font=\small, text=morado] {Requests} (system);
+\draw[flecha] (system) -- node[above, font=\small, text=morado] {R/W} (db);
+\draw[flecha] (system) -- node[right, font=\small, text=morado] {Send OTP} (email);
+\draw[flechaDashed] (email.west) -- ++(-1.8,0) |- (user.south) node[pos=0.28, left, font=\small, text=dorado] {Receives OTP};
+\end{tikzpicture}
+\caption{System context diagram showing the User, the API Gateway with eleven microservices, the PostgreSQL cluster, and the OTP email service.}
+\end{figure}
+
+% ============================================================
+% 2. COMPONENT DIAGRAM
+% ============================================================
+\section{Component Diagram}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  dom/.style={rectangle, rounded corners=6pt, draw, very thick, minimum width=4.8cm, minimum height=3.5cm, align=center},
+  ms/.style={rectangle, rounded corners=4pt, draw, thick, minimum width=4cm, minimum height=0.5cm, font=\small, align=center},
+  flecha/.style={->, very thick, >=stealth, color=naranja},
+  flechaEvent/.style={->, thick, >=stealth, color=azulClaro, dashed}
+]
+
+\node[font=\large\bfseries, text=morado, align=center] at (6.5,8) {COMPONENT DIAGRAM --- Tech Cup};
+
+% API Gateway
+\node[rectangle, rounded corners=8pt, draw=dorado, very thick, fill=black!90, minimum width=4cm, minimum height=1.2cm, text=dorado, font=\bfseries] (api) at (6.5,6.2) {API GATEWAY};
+
+% D1
+\node[dom, fill=morado!8, draw=morado, text=morado] (d1) at (1.5,3.2) {\bfseries IDENTITY \& ACCESS};
+\node[ms, draw=verde!80!black, fill=verde!15, text=verde!80!black] at (1.5,2.4) {Auth Service (21 RF)};
+\node[ms, draw=dorado!80!black, fill=dorado!15, text=dorado!80!black] at (1.5,1.6) {User Profile (11 RF)};
+\node[cylinder, shape border rotate=90, draw, thick, fill=violeta!20, minimum width=1cm, minimum height=0.8cm, aspect=0.3] at (1.5,0.5) {\tiny BD};
+
+% D2
+\node[dom, fill=dorado!8, draw=dorado, text=dorado] (d2) at (6.5,3.2) {\bfseries COMPETITION CORE};
+\node[ms, draw=dorado, fill=dorado!15, text=dorado!80!black] at (6.5,2.4) {Tournaments (20 RF)};
+\node[ms, draw=dorado, fill=dorado!15, text=dorado!80!black] at (6.5,1.6) {Competition + Referee (20 RF)};
+\node[cylinder, shape border rotate=90, draw, thick, fill=violeta!20, minimum width=1cm, minimum height=0.8cm, aspect=0.3] at (6.5,0.5) {\tiny BD};
+
+% D3
+\node[dom, fill=verde!8, draw=verde, text=verde!80!black] (d3) at (11.5,3.2) {\bfseries OPERATIONS \& COM.};
+\node[ms, draw=verde, fill=verde!15, text=verde!80!black] at (11.5,2.4) {Logistics (4 RF)};
+\node[ms, draw=verde, fill=verde!15, text=verde!80!black] at (11.5,1.6) {Comms (9 RF)};
+\node[ms, draw=verde, fill=verde!15, text=verde!80!black] at (11.5,0.8) {Notifications (10 RF)};
+
+% D4
+\node[dom, fill=violeta!8, draw=violeta, text=violeta] (d4) at (6.5,-1.5) {\bfseries PLATFORM \& INTELLIGENCE};
+\node[ms, draw=violeta, fill=violeta!15, text=violeta!80!black] at (4.5,-1.5) {Statistics (8 RF)};
+\node[ms, draw=violeta, fill=violeta!15, text=violeta!80!black] at (8.5,-1.5) {Audit (11 RF)};
+
+% Event Bus
+\node[rectangle, rounded corners=6pt, draw=azul, thick, fill=azul!6, minimum width=2cm, minimum height=1.5cm, text=azul, font=\bfseries\small] (eb) at (11.5,-1.5) {EVENT BUS\\\tiny RabbitMQ};
+
+% Flechas API -> Dominios
+\draw[flecha] (api.south) -- ++(0,-0.3) -| (d1.north);
+\draw[flecha] (api.south) -- (d2.north);
+\draw[flecha] (api.east) -- ++(0.8,0) |- (d3.north);
+\draw[flecha] (api.south) -- ++(0,-1.5) -| (d4.north);
+
+% Flechas Event Bus
+\draw[flechaEvent] (d2.south) -- ++(0,-0.3) -| node[right, font=\tiny, text=azulClaro] {match events} (eb.north);
+\draw[flechaEvent] (eb.west) -- ++(-1,0) |- node[above, font=\tiny, text=azulClaro] {notifications} (d3.south);
+\end{tikzpicture}
+\caption{Component diagram showing the four domains, API Gateway routing, and event-driven communication.}
+\end{figure}
+
+% ============================================================
+% 3. HEXAGONAL ARCHITECTURE
+% ============================================================
+\section{Hexagonal Architecture: Auth Service}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  capa/.style={rectangle, rounded corners=6pt, draw, very thick, minimum width=12cm, minimum height=1.5cm, align=center},
+  box/.style={rectangle, rounded corners=4pt, draw, thick, minimum width=2.5cm, minimum height=0.8cm, font=\small, align=center},
+  flecha/.style={->, thick, >=stealth}
+]
+
+\node[font=\large\bfseries, text=morado, align=center] at (6,8.5) {HEXAGONAL ARCHITECTURE --- Auth Service};
+
+% Input layer
+\node[capa, draw=azul, fill=azul!6, text=azul, dashed] (in) at (6,6.5) {INPUT ADAPTERS};
+\node[box, draw=azul, fill=azul!15] at (2.5,6.5) {REST Controller};
+\node[box, draw=azul, fill=azul!15] at (6,6.5) {JWT Filter};
+\node[box, draw=azul, fill=azul!15] at (9.5,6.5) {Exception Handler};
+
+% Domain layer
+\node[capa, draw=dorado, fill=dorado!6, text=dorado, minimum height=3cm] (dom) at (6,3.5) {DOMAIN CORE (zero external dependencies)};
+\node[box, draw=dorado, fill=dorado!15, minimum width=3cm] at (2.5,3) {Ports\\ AuthUseCase\\ UserRepository};
+\node[box, draw=dorado, fill=dorado!25, minimum width=3.5cm, minimum height=1.2cm] at (6,3.5) {\bfseries AuthService\\ \tiny register $\cdot$ verify $\cdot$ login};
+\node[box, draw=dorado, fill=dorado!15, minimum width=3cm] at (9.5,3) {Models\\ User, OtpCode\\ RefreshToken (POJOs)};
+
+% Output layer
+\node[capa, draw=verde, fill=verde!6, text=verde, dashed] (out) at (6,0.5) {OUTPUT ADAPTERS};
+\node[box, draw=verde, fill=verde!15] at (2.5,0.5) {JPA Repository};
+\node[box, draw=verde, fill=verde!15] at (6,0.5) {Email Sender};
+\node[box, draw=verde, fill=verde!15] at (9.5,0.5) {JWT Provider};
+
+\draw[flecha] (in.south) -- (dom.north);
+\draw[flecha] (dom.south) -- (out.north);
+
+% Rule
+\node[rectangle, rounded corners=4pt, draw=rojo, thick, fill=rojo!6, minimum width=3.5cm, minimum height=2cm, text=rojo, font=\footnotesize, align=center] at (14.5,3.5) {\bfseries RULE\\[0.1cm] Domain must NOT\\ import Spring,\\ JPA, or Lombok.\\ Only pure Java.};
+\end{tikzpicture}
+\caption{Hexagonal architecture of the Auth Service showing strict separation between domain logic and infrastructure.}
+\end{figure}
+
+% ============================================================
+% 4. SEQUENCE DIAGRAM
+% ============================================================
+\section{Authentication Sequence}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  inst/.style={rectangle, rounded corners=4pt, draw, very thick, minimum width=2cm, minimum height=0.7cm, font=\bfseries\small, align=center},
+  flecha/.style={->, thick, >=stealth}
+]
+
+\node[font=\large\bfseries, text=morado, align=center] at (5.5,10) {AUTHENTICATION SEQUENCE};
+
+% Lifelines
+\node[inst, fill=morado, text=white] (u) at (0.5,8.5) {USER};
+\node[inst, fill=dorado!80!black, text=white] (g) at (3,8.5) {GATEWAY};
+\node[inst, fill=dorado!60!black, text=white] (a) at (5.5,8.5) {AUTH};
+\node[inst, fill=violeta, text=white] (d) at (8,8.5) {DB};
+\node[inst, fill=azul!80!black, text=white] (j) at (10.5,8.5) {JWT};
+
+% Lifelines dashed
+\foreach \x/\col in {0.5/morado,3/dorado,5.5/dorado,8/violeta,10.5/azul} {
+  \draw[dashed, \col!30, thick] (\x,7.8) -- (\x,1.5);
+}
+
+% 1. Register
+\node[font=\small\bfseries, text=dorado] at (2,6.8) {1. REGISTRATION};
+\draw[flecha, morado] (0.5,6.3) -- (3,6.3) node[midway, above, font=\tiny] {POST /register};
+\draw[flecha, dorado] (3,5.8) -- (5.5,5.8);
+\draw[flecha, dorado] (5.5,5.3) -- (8,5.3) node[midway, above, font=\tiny] {Save user};
+\draw[flecha, violeta] (8,5) -- (5.5,5);
+\draw[flecha, violeta] (5.5,4.7) -- (3,4.7);
+\draw[flecha, violeta] (3,4.4) -- (0.5,4.4);
+
+% 2. OTP
+\node[font=\small\bfseries, text=verde] at (2,3.8) {2. OTP VERIFICATION};
+\draw[flecha, morado] (0.5,3.3) -- (3,3.3) node[midway, above, font=\tiny] {POST /verify-otp};
+\draw[flecha, dorado] (3,2.8) -- (5.5,2.8);
+\draw[flecha, dorado] (5.5,2.3) -- (8,2.3) node[midway, above, font=\tiny] {UPDATE verified};
+\draw[flecha, violeta] (8,2) -- (5.5,2);
+
+% 3. Login + JWT
+\node[font=\small\bfseries, text=azul] at (2,1.3) {3. LOGIN + JWT};
+\draw[flecha, morado] (0.5,0.8) -- (3,0.8) node[midway, above, font=\tiny] {POST /login};
+\draw[flecha, azul] (5.5,0.3) -- (10.5,0.3) node[midway, above, font=\tiny] {Generate JWT};
+\node[font=\footnotesize, text=azul, align=center] at (5.5,-0.3) {Access (15min) + Refresh (7d)};
+\end{tikzpicture}
+\caption{Sequence diagram of registration, OTP verification, and JWT issuance.}
+\end{figure}
+
+% ============================================================
+% 5. DEPLOYMENT DIAGRAM
+% ============================================================
+\section{CI/CD Deployment Pipeline}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  env/.style={rectangle, rounded corners=6pt, draw, very thick, minimum width=12cm, minimum height=2cm, align=center},
+  box/.style={rectangle, rounded corners=4pt, draw, thick, minimum width=3cm, minimum height=0.8cm, font=\small, align=center},
+  flecha/.style={->, thick, >=stealth, #1}
+]
+
+\node[font=\large\bfseries, text=morado, align=center] at (6,9.5) {CI/CD DEPLOYMENT PIPELINE};
+
+% DEV
+\node[env, draw=azul, fill=azul!6, text=azul] (dev) at (6,7.5) {DEVELOPMENT};
+\node[box, draw=azul, fill=azul!15] at (3,7.5) {VS Code / IntelliJ};
+\node[box, draw=azul, fill=azul!15] at (6,7.5) {Docker Desktop};
+\node[box, draw=azul, fill=azul!15] at (9,7.5) {mvn test + JaCoCo};
+
+\draw[flecha=dorado] (dev.south) -- node[right, font=\small, text=dorado] {git push} ++(0,-0.5);
+
+% CI/CD
+\node[env, draw=dorado, fill=dorado!6, text=dorado!80!black, minimum height=3.5cm] (cicd) at (6,4.5) {GITHUB ACTIONS CI/CD};
+\node[box, draw=dorado, fill=dorado!15] at (2.5,4) {mvn compile};
+\node[box, draw=dorado, fill=dorado!15] at (5,4) {mvn test};
+\node[box, draw=dorado, fill=dorado!15] at (7.5,4) {JaCoCo $>$ 80\%};
+\node[box, draw=verde, fill=verde!15, text=verde!80!black] at (3.5,2.8) {Slack (pass)};
+\node[box, draw=rojo, fill=rojo!6, text=rojo] at (6.5,2.8) {Issue (fail)};
+
+\draw[flecha=dorado] (cicd.south) -- ++(0,-0.5);
+
+% QA + PROD
+\node[env, draw=verde, fill=verde!6, text=verde!80!black, minimum width=5.5cm] (qa) at (3,1.2) {QA (Staging)};
+\node[box, draw=verde, fill=verde!15] at (3,1.2) {Spring Boot + PostgreSQL};
+\node[env, draw=violeta, fill=violeta!6, text=violeta, minimum width=5.5cm] (prod) at (9,1.2) {PRODUCTION};
+\node[box, draw=violeta, fill=violeta!15] at (9,1.2) {Spring Boot + PostgreSQL};
+
+\node[font=\small, text=gray!60, align=center] at (6,0) {Each microservice deploys independently. JaCoCo $>$ 80\%. Slack + auto Issues.};
+\end{tikzpicture}
+\caption{CI/CD pipeline from development through GitHub Actions to QA and production environments.}
+\end{figure}
+
+\end{document}
