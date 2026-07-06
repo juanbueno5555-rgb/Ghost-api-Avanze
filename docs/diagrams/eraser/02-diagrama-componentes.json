@@ -1,0 +1,212 @@
+{
+  "title": "Diagrama de Componentes General - Tech Cup",
+  "diagramX": 65,
+  "diagramY": 15,
+  "elements": [
+    {
+      "tag": "Textbox",
+      "text": "**DIAGRAMA DE COMPONENTES GENERAL**",
+      "fontSize": 20,
+      "hAlign": "center",
+      "color": "#4C1D95",
+      "id": "title",
+      "x": 280,
+      "y": 10,
+      "width": 400,
+      "height": 22
+    },
+    {
+      "tag": "Shape",
+      "shape": "oval",
+      "texts": [{"text": "USUARIO", "color": "white", "fontSize": 14, "hAlign": "center"}],
+      "icon": "user",
+      "bgColor": "#4C1D95",
+      "borderColor": "#1e1e1e",
+      "id": "user",
+      "x": 10,
+      "y": 270,
+      "width": 110,
+      "height": 110
+    },
+    {
+      "tag": "Shape",
+      "shape": "rectangle",
+      "texts": [
+        {"text": "API GATEWAY", "fontSize": 16, "hAlign": "center", "color": "#F59E0B"},
+        {"text": "Enrutamiento + JWT Auth", "fontSize": 11, "hAlign": "center", "color": "#ffffff"}
+      ],
+      "bgColor": "#0F172A",
+      "borderColor": "#F59E0B",
+      "cornerRadius": "round",
+      "id": "api-gw",
+      "x": 220,
+      "y": 80,
+      "width": 240,
+      "height": 85
+    },
+    {
+      "tag": "Relationship",
+      "from": "user", "fromPort": "right", "to": "api-gw", "toPort": "left",
+      "endArrowhead": "triangle", "color": "#F97316",
+      "id": "r-user", "lineWidth": 1.5,
+      "x": 122, "y": 325, "width": 96, "height": 0,
+      "points": [[0,0],[96,0]]
+    },
+    {
+      "tag": "Shape",
+      "shape": "rectangle",
+      "texts": [
+        {"text": "D1 — IDENTIDAD Y PERSONAS", "fontSize": 13, "hAlign": "center", "color": "#4C1D95"},
+        {"text": "Servicio de Identidad (21 RF)", "fontSize": 11, "hAlign": "center", "color": "#10B981"},
+        {"text": "Usuarios y Jugadores (11 RF)", "fontSize": 11, "hAlign": "center", "color": "#F59E0B"},
+        {"text": "Servicio de Equipos (13 RF)", "fontSize": 11, "hAlign": "center", "color": "#F59E0B"}
+      ],
+      "bgColor": "#1E1035",
+      "borderColor": "#4C1D95",
+      "cornerRadius": "round",
+      "id": "d1",
+      "x": 70,
+      "y": 220,
+      "width": 240,
+      "height": 140
+    },
+    {
+      "tag": "Shape",
+      "shape": "rectangle",
+      "texts": [
+        {"text": "D2 — TORNEO Y COMPETENCIA", "fontSize": 13, "hAlign": "center", "color": "#F59E0B"},
+        {"text": "Servicio de Torneos (20 RF)", "fontSize": 11, "hAlign": "center", "color": "#F59E0B"},
+        {"text": "Servicio de Competencia (20 RF)", "fontSize": 11, "hAlign": "center", "color": "#F59E0B"},
+        {"text": "Partidos + Arbitraje en Vivo", "fontSize": 10, "hAlign": "center", "color": "#94A3B8"}
+      ],
+      "bgColor": "#1E1205",
+      "borderColor": "#F59E0B",
+      "cornerRadius": "round",
+      "id": "d2",
+      "x": 370,
+      "y": 220,
+      "width": 240,
+      "height": 140
+    },
+    {
+      "tag": "Shape",
+      "shape": "rectangle",
+      "texts": [
+        {"text": "D3 — OPERACIONES Y COM.", "fontSize": 13, "hAlign": "center", "color": "#10B981"},
+        {"text": "Servicio de Logistica (4 RF)", "fontSize": 11, "hAlign": "center", "color": "#10B981"},
+        {"text": "Comunicaciones (9 RF)", "fontSize": 11, "hAlign": "center", "color": "#10B981"},
+        {"text": "Notificaciones (10 RF)", "fontSize": 11, "hAlign": "center", "color": "#10B981"}
+      ],
+      "bgColor": "#052E16",
+      "borderColor": "#10B981",
+      "cornerRadius": "round",
+      "id": "d3",
+      "x": 670,
+      "y": 220,
+      "width": 240,
+      "height": 140
+    },
+    {
+      "tag": "Relationship", "from": "api-gw", "fromPort": "bottom", "to": "d1", "toPort": "top",
+      "endArrowhead": "triangle", "color": "#F97316",
+      "id": "a1", "lineWidth": 1.5,
+      "x": 300, "y": 166, "width": 0, "height": 52,
+      "points": [[0,0],[0,52]]
+    },
+    {
+      "tag": "Relationship", "from": "api-gw", "fromPort": "bottom", "to": "d2", "toPort": "top",
+      "endArrowhead": "triangle", "color": "#F97316",
+      "id": "a2", "lineWidth": 1.5,
+      "x": 460, "y": 166, "width": 0, "height": 52,
+      "points": [[0,0],[0,52]]
+    },
+    {
+      "tag": "Relationship", "from": "api-gw", "fromPort": "right", "to": "d3", "toPort": "top",
+      "endArrowhead": "triangle", "color": "#F97316",
+      "id": "a3", "lineWidth": 1.5,
+      "x": 462, "y": 140, "width": 240, "height": 105,
+      "points": [[0,0],[120,0],[120,58],[240,105]]
+    },
+    {
+      "tag": "Shape",
+      "shape": "rectangle",
+      "texts": [
+        {"text": "D4 — PLATAFORMA E INTELIGENCIA", "fontSize": 13, "hAlign": "center", "color": "#7C3AED"},
+        {"text": "Servicio de Estadisticas (8 RF)", "fontSize": 11, "hAlign": "center", "color": "#C084FC"},
+        {"text": "Servicio de Auditoria (11 RF)", "fontSize": 11, "hAlign": "center", "color": "#C084FC"}
+      ],
+      "bgColor": "#1A032E",
+      "borderColor": "#7C3AED",
+      "cornerRadius": "round",
+      "id": "d4",
+      "x": 370,
+      "y": 430,
+      "width": 240,
+      "height": 120
+    },
+    {
+      "tag": "Relationship", "from": "api-gw", "fromPort": "bottom", "to": "d4", "toPort": "top",
+      "endArrowhead": "triangle", "color": "#F97316",
+      "id": "a4", "lineWidth": 1.5,
+      "x": 300, "y": 166, "width": 98, "height": 262,
+      "points": [[0,0],[70,0],[70,262],[98,262]]
+    },
+    {
+      "tag": "Shape",
+      "shape": "rectangle",
+      "texts": [
+        {"text": "EVENT BUS", "fontSize": 14, "hAlign": "center", "color": "#38BDF8"},
+        {"text": "RabbitMQ / Kafka", "fontSize": 10, "hAlign": "center", "color": "#38BDF8"},
+        {"text": "Eventos asincronos:", "fontSize": 9, "hAlign": "center", "color": "#94A3B8"},
+        {"text": "Goles, Tarjetas, Sanciones", "fontSize": 9, "hAlign": "center", "color": "#94A3B8"},
+        {"text": "Notificaciones, Auditoria", "fontSize": 9, "hAlign": "center", "color": "#94A3B8"}
+      ],
+      "bgColor": "#082F49",
+      "borderColor": "#0EA5E9",
+      "cornerRadius": "round",
+      "id": "event-bus",
+      "x": 710,
+      "y": 430,
+      "width": 160,
+      "height": 150
+    },
+    {
+      "tag": "Relationship", "from": "d2", "fromPort": "right", "to": "event-bus", "toPort": "left",
+      "endArrowhead": "triangle", "color": "#38BDF8",
+      "id": "eb1",
+      "label": "Publican eventos de partido",
+      "x": 612, "y": 290, "width": 96, "height": 0,
+      "points": [[0,0],[96,0]]
+    },
+    {
+      "tag": "Relationship", "from": "event-bus", "fromPort": "left", "to": "d3", "toPort": "right",
+      "endArrowhead": "triangle", "color": "#38BDF8",
+      "id": "eb2",
+      "label": "Consumen notificaciones",
+      "x": 708, "y": 470, "width": -200, "height": -120,
+      "points": [[0,0],[-200,0],[0,-120]]
+    },
+    {
+      "tag": "Relationship", "from": "event-bus", "fromPort": "bottom", "to": "d4", "toPort": "right",
+      "endArrowhead": "triangle", "color": "#38BDF8",
+      "id": "eb3",
+      "label": "Stats + Audit consumen",
+      "x": 790, "y": 582, "width": -120, "height": -30,
+      "points": [[0,0],[-120,0],[0,-30]]
+    },
+    {
+      "tag": "Shape",
+      "shape": "cylinder",
+      "texts": [{"text": "BD x3", "color": "white", "fontSize": 10, "hAlign": "center"}],
+      "bgColor": "#3B0764", "borderColor": "#7C3AED",
+      "id": "bd-d1", "x": 150, "y": 370, "width": 80, "height": 50
+    },
+    {
+      "tag": "Shape",
+      "shape": "cylinder",
+      "texts": [{"text": "BD x2", "color": "white", "fontSize": 10, "hAlign": "center"}],
+      "bgColor": "#3B0764", "borderColor": "#7C3AED",
+      "id": "bd-d2", "x": 450, "y": 370, "width": 80, "height": 50
+    }
+  ]
+}

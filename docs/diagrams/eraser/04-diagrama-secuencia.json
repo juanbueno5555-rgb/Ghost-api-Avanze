@@ -1,0 +1,132 @@
+{
+  "title": "Diagrama de Secuencia - Registro, OTP, Login, JWT",
+  "diagramX": 65,
+  "diagramY": 15,
+  "elements": [
+    {
+      "tag": "Textbox",
+      "text": "**DIAGRAMA DE SECUENCIA — Registro → OTP → Login → JWT**",
+      "fontSize": 18, "hAlign": "center", "color": "#4C1D95",
+      "id": "title", "x": 180, "y": 10, "width": 500, "height": 22
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [{"text": "USUARIO", "fontSize": 13, "hAlign": "center", "color": "white"}],
+      "bgColor": "#4C1D95", "borderColor": "#4C1D95",
+      "id": "actor", "x": 30, "y": 55, "width": 100, "height": 35,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [{"text": "API GATEWAY", "fontSize": 13, "hAlign": "center", "color": "white"}],
+      "bgColor": "#B45309", "borderColor": "#F59E0B",
+      "id": "gateway", "x": 200, "y": 55, "width": 120, "height": 35,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [{"text": "AUTH SERVICE", "fontSize": 13, "hAlign": "center", "color": "white"}],
+      "bgColor": "#78350F", "borderColor": "#F59E0B",
+      "id": "auth", "x": 390, "y": 55, "width": 120, "height": 35,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [{"text": "BD AUTH", "fontSize": 13, "hAlign": "center", "color": "white"}],
+      "bgColor": "#3B0764", "borderColor": "#7C3AED",
+      "id": "db", "x": 580, "y": 55, "width": 100, "height": 35,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [{"text": "JWT", "fontSize": 13, "hAlign": "center", "color": "white"}],
+      "bgColor": "#0C4A6E", "borderColor": "#0EA5E9",
+      "id": "jwt", "x": 740, "y": 55, "width": 80, "height": 35,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Textbox",
+      "text": "1. REGISTRO",
+      "fontSize": 12, "hAlign": "center", "color": "#F59E0B",
+      "id": "s1-label", "x": 220, "y": 100, "width": 120, "height": 18
+    },
+    {
+      "tag": "Relationship", "from": "actor", "fromPort": "right", "to": "gateway", "toPort": "left",
+      "label": "POST /register (email, pass, datos)", "endArrowhead": "triangle", "color": "#4C1D95",
+      "id": "step1", "x": 132, "y": 135, "width": 66, "height": 0,
+      "points": [[0,0],[66,0]]
+    },
+    {
+      "tag": "Relationship", "from": "gateway", "fromPort": "right", "to": "auth", "toPort": "left",
+      "endArrowhead": "triangle", "color": "#F59E0B",
+      "id": "step1b", "x": 322, "y": 175, "width": 66, "height": 0,
+      "points": [[0,0],[66,0]]
+    },
+    {
+      "tag": "Relationship", "from": "auth", "fromPort": "right", "to": "db", "toPort": "left",
+      "label": "Guarda user (verified=false)", "endArrowhead": "triangle", "color": "#F59E0B",
+      "id": "step1c", "x": 512, "y": 215, "width": 66, "height": 0,
+      "points": [[0,0],[66,0]]
+    },
+    {
+      "tag": "Relationship", "from": "db", "fromPort": "left", "to": "auth", "toPort": "right",
+      "label": "OK", "endArrowhead": "triangle", "color": "#7C3AED",
+      "id": "step1d", "x": 578, "y": 240, "width": -186, "height": 0,
+      "points": [[0,0],[-186,0]]
+    },
+    {
+      "tag": "Textbox",
+      "text": "2. VERIFICACION OTP",
+      "fontSize": 12, "hAlign": "center", "color": "#10B981",
+      "id": "s2-label", "x": 220, "y": 280, "width": 140, "height": 18
+    },
+    {
+      "tag": "Relationship", "from": "actor", "fromPort": "right", "to": "gateway", "toPort": "left",
+      "label": "POST /verify-otp (token, codigo)", "endArrowhead": "triangle", "color": "#4C1D95",
+      "id": "step2a", "x": 132, "y": 315, "width": 66, "height": 0,
+      "points": [[0,0],[66,0]]
+    },
+    {
+      "tag": "Relationship", "from": "auth", "fromPort": "right", "to": "db", "toPort": "left",
+      "label": "Valida OTP + marca usado", "endArrowhead": "triangle", "color": "#F59E0B",
+      "id": "step2b", "x": 512, "y": 355, "width": 66, "height": 0,
+      "points": [[0,0],[66,0]]
+    },
+    {
+      "tag": "Relationship", "from": "db", "fromPort": "left", "to": "auth", "toPort": "right",
+      "label": "Valido", "endArrowhead": "triangle", "color": "#7C3AED",
+      "id": "step2c", "x": 578, "y": 380, "width": -186, "height": 0,
+      "points": [[0,0],[-186,0]]
+    },
+    {
+      "tag": "Textbox",
+      "text": "3. LOGIN + JWT",
+      "fontSize": 12, "hAlign": "center", "color": "#0EA5E9",
+      "id": "s3-label", "x": 220, "y": 420, "width": 120, "height": 18
+    },
+    {
+      "tag": "Relationship", "from": "actor", "fromPort": "right", "to": "gateway", "toPort": "left",
+      "label": "POST /login (email, pass)", "endArrowhead": "triangle", "color": "#4C1D95",
+      "id": "step3a", "x": 132, "y": 455, "width": 66, "height": 0,
+      "points": [[0,0],[66,0]]
+    },
+    {
+      "tag": "Relationship", "from": "auth", "fromPort": "right", "to": "jwt", "toPort": "left",
+      "label": "Genera JWT (access 15min + refresh 7d)", "endArrowhead": "triangle", "color": "#0EA5E9",
+      "id": "step3b", "x": 512, "y": 495, "width": 226, "height": 0,
+      "points": [[0,0],[226,0]]
+    },
+    {
+      "tag": "Relationship", "from": "jwt", "fromPort": "left", "to": "actor", "toPort": "right",
+      "label": "JWT + Refresh Token", "endArrowhead": "triangle", "color": "#0EA5E9",
+      "id": "step3c", "x": 738, "y": 520, "width": -706, "height": 0,
+      "points": [[0,0],[-706,0]]
+    },
+    {
+      "tag": "Textbox",
+      "text": "El API Gateway valida el JWT en cada request. Si expira, se usa el Refresh Token.",
+      "fontSize": 10, "hAlign": "center", "color": "#94A3B8",
+      "id": "note", "x": 180, "y": 560, "width": 500, "height": 18
+    }
+  ]
+}

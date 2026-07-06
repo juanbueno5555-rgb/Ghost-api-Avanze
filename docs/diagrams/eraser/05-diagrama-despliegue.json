@@ -1,0 +1,99 @@
+{
+  "title": "Diagrama de Despliegue - CI/CD Tech Cup",
+  "diagramX": 65,
+  "diagramY": 15,
+  "elements": [
+    {
+      "tag": "Textbox",
+      "text": "**DIAGRAMA DE DESPLIEGUE — CI/CD Tech Cup**",
+      "fontSize": 18, "hAlign": "center", "color": "#4C1D95",
+      "id": "title", "x": 180, "y": 10, "width": 500, "height": 22
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [
+        {"text": "DEV — Ambiente Local", "fontSize": 14, "hAlign": "center", "color": "#60A5FA"},
+        {"text": "VS Code / IntelliJ", "fontSize": 11, "hAlign": "center", "color": "white"},
+        {"text": "Docker Desktop (PostgreSQL)", "fontSize": 11, "hAlign": "center", "color": "white"},
+        {"text": "mvn clean test + JaCoCo", "fontSize": 11, "hAlign": "center", "color": "#93C5FD"}
+      ],
+      "bgColor": "#1E3A5F33", "borderColor": "#2563EB",
+      "id": "dev", "x": 80, "y": 60, "width": 300, "height": 120,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Relationship", "from": "dev", "fromPort": "bottom", "to": "cicd", "toPort": "top",
+      "label": "git push", "endArrowhead": "triangle", "color": "#F59E0B",
+      "id": "arrow-push", "x": 230, "y": 182, "width": 0, "height": 38,
+      "points": [[0,0],[0,38]]
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [
+        {"text": "GITHUB ACTIONS — CI/CD PIPELINE", "fontSize": 14, "hAlign": "center", "color": "#FCD34D"},
+        {"text": "1. mvn clean compile", "fontSize": 11, "hAlign": "center", "color": "white"},
+        {"text": "2. mvn test (PostgreSQL service)", "fontSize": 11, "hAlign": "center", "color": "white"},
+        {"text": "3. JaCoCo coverage > 80%", "fontSize": 11, "hAlign": "center", "color": "white"},
+        {"text": "4. Slack notification (exito/fallo)", "fontSize": 11, "hAlign": "center", "color": "#10B981"},
+        {"text": "5. Issue automatico si falla", "fontSize": 11, "hAlign": "center", "color": "#EF4444"}
+      ],
+      "bgColor": "#42200633", "borderColor": "#F59E0B",
+      "id": "cicd", "x": 80, "y": 222, "width": 600, "height": 150,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Relationship", "from": "cicd", "fromPort": "bottom", "to": "qa", "toPort": "top",
+      "label": "Deploy a QA", "endArrowhead": "triangle", "color": "#F59E0B",
+      "id": "arrow-qa", "x": 210, "y": 374, "width": 0, "height": 28,
+      "points": [[0,0],[0,28]]
+    },
+    {
+      "tag": "Relationship", "from": "cicd", "fromPort": "bottom", "to": "prod", "toPort": "top",
+      "label": "Deploy a PROD", "endArrowhead": "triangle", "color": "#F59E0B",
+      "id": "arrow-prod", "x": 470, "y": 374, "width": 0, "height": 28,
+      "points": [[0,0],[0,28]]
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [
+        {"text": "QA — Ambiente de Pruebas", "fontSize": 14, "hAlign": "center", "color": "#34D399"},
+        {"text": "Spring Boot + PostgreSQL", "fontSize": 11, "hAlign": "center", "color": "white"},
+        {"text": "Pruebas de integracion", "fontSize": 11, "hAlign": "center", "color": "white"},
+        {"text": "Validacion de calidad", "fontSize": 11, "hAlign": "center", "color": "#6EE7B7"}
+      ],
+      "bgColor": "#064E3B33", "borderColor": "#10B981",
+      "id": "qa", "x": 80, "y": 404, "width": 260, "height": 120,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [
+        {"text": "PROD — Produccion", "fontSize": 14, "hAlign": "center", "color": "#A78BFA"},
+        {"text": "Spring Boot + PostgreSQL", "fontSize": 11, "hAlign": "center", "color": "white"},
+        {"text": "Usuarios reales", "fontSize": 11, "hAlign": "center", "color": "white"},
+        {"text": "Monitoreo continuo", "fontSize": 11, "hAlign": "center", "color": "#C4B5FD"}
+      ],
+      "bgColor": "#1A032E33", "borderColor": "#7C3AED",
+      "id": "prod", "x": 420, "y": 404, "width": 260, "height": 120,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Shape", "shape": "cylinder",
+      "texts": [{"text": "BD QA", "color": "white", "fontSize": 10, "hAlign": "center"}],
+      "bgColor": "#064E3B", "borderColor": "#10B981",
+      "id": "bd-qa", "x": 160, "y": 530, "width": 80, "height": 50
+    },
+    {
+      "tag": "Shape", "shape": "cylinder",
+      "texts": [{"text": "BD PROD", "color": "white", "fontSize": 10, "hAlign": "center"}],
+      "bgColor": "#3B0764", "borderColor": "#7C3AED",
+      "id": "bd-prod", "x": 500, "y": 530, "width": 80, "height": 50
+    },
+    {
+      "tag": "Textbox",
+      "text": "Cada MS se despliega independientemente. JaCoCo > 80%. Slack + Issues automaticos.",
+      "fontSize": 10, "hAlign": "center", "color": "#94A3B8",
+      "id": "footer-note", "x": 150, "y": 590, "width": 500, "height": 18
+    }
+  ]
+}

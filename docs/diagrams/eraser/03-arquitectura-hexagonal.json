@@ -1,0 +1,75 @@
+{
+  "title": "Arquitectura Hexagonal - Servicio de Auth",
+  "diagramX": 65,
+  "diagramY": 15,
+  "elements": [
+    {
+      "tag": "Textbox",
+      "text": "**ARQUITECTURA HEXAGONAL — Servicio de Identidad**",
+      "fontSize": 18, "hAlign": "center", "color": "#4C1D95",
+      "id": "title", "x": 180, "y": 10, "width": 500, "height": 22
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [
+        {"text": "ADAPTADORES DE ENTRADA", "fontSize": 12, "hAlign": "center", "color": "#38BDF8"},
+        {"text": "AuthController (REST) | JwtAuthFilter | GlobalExceptionHandler", "fontSize": 10, "hAlign": "center", "color": "#94A3B8"}
+      ],
+      "bgColor": "#0C4A6E33", "borderColor": "#0EA5E9",
+      "id": "input-layer", "x": 60, "y": 60, "width": 680, "height": 70,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [
+        {"text": "DOMINIO (Core — CERO dependencias externas)", "fontSize": 14, "hAlign": "center", "color": "#F59E0B"},
+        {"text": "AuthService (caso de uso)", "fontSize": 12, "hAlign": "center", "color": "#ffffff"},
+        {"text": "Puertos: AuthUseCase, UserRepository, OtpCodeRepository, EmailSender...", "fontSize": 10, "hAlign": "center", "color": "#FDE047"},
+        {"text": "Modelos: User, OtpCode, RefreshToken (POJOs puros - sin @Entity)", "fontSize": 10, "hAlign": "center", "color": "#FDE047"}
+      ],
+      "bgColor": "#F59E0B15", "borderColor": "#F59E0B",
+      "id": "domain-layer", "x": 60, "y": 160, "width": 680, "height": 120,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Shape", "shape": "rectangle",
+      "texts": [
+        {"text": "ADAPTADORES DE SALIDA", "fontSize": 12, "hAlign": "center", "color": "#34D399"},
+        {"text": "JpaUserRepositoryAdapter | JpaOtpCodeAdapter | ConsoleEmailAdapter | BcryptEncoderAdapter | JwtServiceAdapter", "fontSize": 10, "hAlign": "center", "color": "#94A3B8"}
+      ],
+      "bgColor": "#10B98115", "borderColor": "#10B981",
+      "id": "output-layer", "x": 60, "y": 310, "width": 680, "height": 70,
+      "cornerRadius": "round"
+    },
+    {
+      "tag": "Shape", "shape": "cylinder",
+      "texts": [{"text": "PostgreSQL", "color": "white", "fontSize": 12, "hAlign": "center"}],
+      "bgColor": "#3B0764", "borderColor": "#7C3AED",
+      "id": "db", "x": 350, "y": 410, "width": 100, "height": 70
+    },
+    {
+      "tag": "Relationship", "from": "input-layer", "fromPort": "bottom", "to": "domain-layer", "toPort": "top",
+      "endArrowhead": "triangle", "color": "#38BDF8",
+      "id": "r1", "x": 400, "y": 132, "width": 0, "height": 26,
+      "points": [[0,0],[0,26]]
+    },
+    {
+      "tag": "Relationship", "from": "domain-layer", "fromPort": "bottom", "to": "output-layer", "toPort": "top",
+      "endArrowhead": "triangle", "color": "#34D399",
+      "id": "r2", "x": 400, "y": 282, "width": 0, "height": 26,
+      "points": [[0,0],[0,26]]
+    },
+    {
+      "tag": "Relationship", "from": "output-layer", "fromPort": "bottom", "to": "db", "toPort": "top",
+      "endArrowhead": "triangle", "color": "#34D399",
+      "id": "r3", "x": 400, "y": 382, "width": 0, "height": 26,
+      "points": [[0,0],[0,26]]
+    },
+    {
+      "tag": "Textbox",
+      "text": "**REGLA SAGRADA**\nEl dominio NO puede importar:\nSpring | Jakarta/JPA | Lombok | Frameworks externos\nSolo Java puro + stdlib",
+      "fontSize": 10, "hAlign": "center", "color": "#EF4444",
+      "id": "rule", "x": 760, "y": 180, "width": 180, "height": 80
+    }
+  ]
+}
