@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Componentes - Tech Cup" id="componentes">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="&lt;b&gt;DIAGRAMA DE COMPONENTES GENERAL — Tech Cup&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontColor=#4C1D95;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="10" width="500" height="30"/>
+        </mxCell>
+
+        <!-- User -->
+        <mxCell id="user" value="USUARIO" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4C1D95;strokeColor=#1e1e1e;fontColor=#FFFFFF;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="320" width="100" height="100"/>
+        </mxCell>
+
+        <!-- API Gateway -->
+        <mxCell id="api-gw" value="&lt;b&gt;🔀 API GATEWAY&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:10px'&gt;Enrutamiento + JWT Auth&lt;br&gt;Rate Limiting + Logging&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0F172A;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="230" y="80" width="200" height="90"/>
+        </mxCell>
+
+        <!-- D1 -->
+        <mxCell id="d1-box" value="&lt;b&gt;D1 — IDENTIDAD Y PERSONAS&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1E1035;strokeColor=#4C1D95;fontColor=#4C1D95;fontSize=12;strokeWidth=2;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="230" width="240" height="180"/>
+        </mxCell>
+        <mxCell id="d1-auth" value="✅ Servicio de Identidad (21 RF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#10B981;fontSize=10;" vertex="1" parent="d1-box">
+          <mxGeometry x="10" y="30" width="220" height="30"/>
+        </mxCell>
+        <mxCell id="d1-usrs" value="⬜ Usuarios y Jugadores (11 RF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#451A03;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=10;" vertex="1" parent="d1-box">
+          <mxGeometry x="10" y="70" width="220" height="30"/>
+        </mxCell>
+        <mxCell id="d1-eqp" value="⬜ Servicio de Equipos (13 RF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#451A03;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=10;" vertex="1" parent="d1-box">
+          <mxGeometry x="10" y="110" width="220" height="30"/>
+        </mxCell>
+        <mxCell id="d1-bd" value="🗄️ BD x3" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#3B0764;strokeColor=#7C3AED;fontColor=#C084FC;fontSize=9;" vertex="1" parent="d1-box">
+          <mxGeometry x="80" y="145" width="70" height="30"/>
+        </mxCell>
+
+        <!-- D2 -->
+        <mxCell id="d2-box" value="&lt;b&gt;D2 — TORNEO Y COMPETENCIA&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1E1205;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=12;strokeWidth=2;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="370" y="230" width="240" height="180"/>
+        </mxCell>
+        <mxCell id="d2-to" value="⬜ Servicio de Torneos (20 RF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#451A03;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=10;" vertex="1" parent="d2-box">
+          <mxGeometry x="10" y="30" width="220" height="30"/>
+        </mxCell>
+        <mxCell id="d2-co" value="⬜ Servicio de Competencia (20 RF)&lt;br&gt;&lt;font style='font-size:8px'&gt;Partidos + Arbitraje en Vivo&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#451A03;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=10;" vertex="1" parent="d2-box">
+          <mxGeometry x="10" y="70" width="220" height="40"/>
+        </mxCell>
+        <mxCell id="d2-bd" value="🗄️ BD x2" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#3B0764;strokeColor=#7C3AED;fontColor=#C084FC;fontSize=9;" vertex="1" parent="d2-box">
+          <mxGeometry x="80" y="145" width="70" height="30"/>
+        </mxCell>
+
+        <!-- D3 -->
+        <mxCell id="d3-box" value="&lt;b&gt;D3 — OPERACIONES Y COM.&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#052E16;strokeColor=#10B981;fontColor=#10B981;fontSize=12;strokeWidth=2;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="690" y="230" width="240" height="180"/>
+        </mxCell>
+        <mxCell id="d3-lo" value="⬜ Servicio de Logistica (4 RF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#10B981;fontSize=10;" vertex="1" parent="d3-box">
+          <mxGeometry x="10" y="30" width="220" height="30"/>
+        </mxCell>
+        <mxCell id="d3-cm" value="⬜ Comunicaciones (9 RF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#10B981;fontSize=10;" vertex="1" parent="d3-box">
+          <mxGeometry x="10" y="70" width="220" height="30"/>
+        </mxCell>
+        <mxCell id="d3-nt" value="⬜ Notificaciones (10 RF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#10B981;fontSize=10;" vertex="1" parent="d3-box">
+          <mxGeometry x="10" y="110" width="220" height="30"/>
+        </mxCell>
+        <mxCell id="d3-bd" value="🗄️ BD x3" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#3B0764;strokeColor=#7C3AED;fontColor=#C084FC;fontSize=9;" vertex="1" parent="d3-box">
+          <mxGeometry x="80" y="145" width="70" height="30"/>
+        </mxCell>
+
+        <!-- D4 -->
+        <mxCell id="d4-box" value="&lt;b&gt;D4 — PLATAFORMA E INTELIGENCIA&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A032E;strokeColor=#7C3AED;fontColor=#7C3AED;fontSize=12;strokeWidth=2;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="480" width="280" height="150"/>
+        </mxCell>
+        <mxCell id="d4-es" value="📊 Servicio de Estadisticas (8 RF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3B0764;strokeColor=#7C3AED;fontColor=#C084FC;fontSize=10;" vertex="1" parent="d4-box">
+          <mxGeometry x="10" y="30" width="260" height="30"/>
+        </mxCell>
+        <mxCell id="d4-au" value="📝 Servicio de Auditoria (11 RF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3B0764;strokeColor=#7C3AED;fontColor=#C084FC;fontSize=10;" vertex="1" parent="d4-box">
+          <mxGeometry x="10" y="70" width="260" height="30"/>
+        </mxCell>
+        <mxCell id="d4-api" value="🔀 API Gateway (ya esta arriba)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3B0764;strokeColor=#7C3AED;fontColor=#C084FC;fontSize=9;opacity=50;" vertex="1" parent="d4-box">
+          <mxGeometry x="10" y="110" width="260" height="25"/>
+        </mxCell>
+
+        <!-- Event Bus -->
+        <mxCell id="eb" value="&lt;b&gt;📨 EVENT BUS&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;RabbitMQ / Kafka&lt;br&gt;&lt;br&gt;Eventos asincronos:&lt;br&gt;- Goles, Tarjetas&lt;br&gt;- Sanciones&lt;br&gt;- Notificaciones&lt;br&gt;- Auditoria&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#082F49;strokeColor=#0EA5E9;fontColor=#38BDF8;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="980" y="250" width="130" height="170"/>
+        </mxCell>
+
+        <!-- Arrows User -> API GW -->
+        <mxCell id="a-user" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;strokeColor=#F97316;" edge="1" parent="1" source="user" target="api-gw">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="125" y="370" as="sourcePoint"/>
+            <mxPoint x="220" y="140" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Arrows API GW -> Domains -->
+        <mxCell id="a1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#F97316;" edge="1" parent="1" source="api-gw" target="d1-box">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="175" as="sourcePoint"/>
+            <mxPoint x="170" y="225" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#F97316;" edge="1" parent="1" source="api-gw" target="d2-box">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="175" as="sourcePoint"/>
+            <mxPoint x="490" y="225" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a3" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#F97316;" edge="1" parent="1" source="api-gw" target="d3-box">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="435" y="125" as="sourcePoint"/>
+            <mxPoint x="810" y="225" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a4" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#F97316;" edge="1" parent="1" source="api-gw" target="d4-box">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="175" as="sourcePoint"/>
+            <mxPoint x="450" y="475" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Event Bus arrows -->
+        <mxCell id="eb-d2" value="Publican eventos de partido" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=1;strokeColor=#38BDF8;fontSize=9;fontColor=#38BDF8;" edge="1" parent="1" source="d2-box" target="eb">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="615" y="320" as="sourcePoint"/>
+            <mxPoint x="975" y="330" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eb-d3" value="Consumen notificaciones" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;entryX=1;entryY=0.5;strokeWidth=1;strokeColor=#38BDF8;fontSize=9;fontColor=#38BDF8;" edge="1" parent="1" source="eb" target="d3-box">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="975" y="340" as="sourcePoint"/>
+            <mxPoint x="935" y="340" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eb-d4" value="D4 consume" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;strokeWidth=1;strokeColor=#38BDF8;fontSize=9;fontColor=#38BDF8;" edge="1" parent="1" source="eb" target="d4-box">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1045" y="425" as="sourcePoint"/>
+            <mxPoint x="595" y="555" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

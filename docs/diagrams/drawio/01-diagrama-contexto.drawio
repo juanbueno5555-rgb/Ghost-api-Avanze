@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Contexto - Tech Cup" id="contexto">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;DIAGRAMA DE CONTEXTO — Tech Cup&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontColor=#4C1D95;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="10" width="400" height="30"/>
+        </mxCell>
+
+        <!-- User -->
+        <mxCell id="user" value="USUARIO" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4C1D95;strokeColor=#1e1e1e;fontColor=#FFFFFF;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="120" height="120"/>
+        </mxCell>
+
+        <!-- System Box -->
+        <mxCell id="system" value="&lt;b&gt;🏆 TECH CUP&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:11px'&gt;Plataforma de Gesti&amp;oacute;n de Torneos&lt;br&gt;API Gateway + 11 Microservicios&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F59E0B;strokeColor=#1e1e1e;fontColor=#1e1e1e;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="260" y="170" width="280" height="180"/>
+        </mxCell>
+
+        <!-- DB -->
+        <mxCell id="db" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:10px'&gt;x12 (1 por MS)&lt;/font&gt;" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#7C3AED;strokeColor=#1e1e1e;fontColor=#FFFFFF;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="640" y="200" width="140" height="120"/>
+        </mxCell>
+
+        <!-- Email -->
+        <mxCell id="email" value="📧 Email (OTP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#10B981;strokeColor=#1e1e1e;fontColor=#FFFFFF;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="300" y="430" width="200" height="60"/>
+        </mxCell>
+
+        <!-- Arrow User -> System -->
+        <mxCell id="r1" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;" edge="1" parent="1" source="user" target="system">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="260" as="sourcePoint"/>
+            <mxPoint x="250" y="260" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Arrow System -> DB -->
+        <mxCell id="r2" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;" edge="1" parent="1" source="system" target="db">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="545" y="260" as="sourcePoint"/>
+            <mxPoint x="630" y="260" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Arrow System -> Email -->
+        <mxCell id="r3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;" edge="1" parent="1" source="system" target="email">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="355" as="sourcePoint"/>
+            <mxPoint x="400" y="420" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Dashed Arrow Email -> User -->
+        <mxCell id="r4" value="Recibe OTP" style="endArrow=classic;dashed=1;html=1;rounded=0;exitX=0;exitY=0.5;entryX=0.5;entryY=1;strokeColor=#F59E0B;fontSize=11;fontColor=#F59E0B;" edge="1" parent="1" source="email" target="user">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="460" as="sourcePoint"/>
+            <mxPoint x="100" y="460" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="100" y="460"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Note -->
+        <mxCell id="note" value="&lt;i&gt;Cada microservicio tiene su propia BD PostgreSQL independiente&lt;/i&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#F59E0B;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="70" width="400" height="20"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Despliegue - CI/CD" id="despliegue">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="&lt;b&gt;DIAGRAMA DE DESPLIEGUE — CI/CD Tech Cup&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontColor=#4C1D95;" vertex="1" parent="1">
+          <mxGeometry x="150" y="10" width="500" height="30"/>
+        </mxCell>
+
+        <!-- DEV -->
+        <mxCell id="dev-box" value="&lt;b&gt;🖥️ DEV — Local&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1E3A5F33;strokeColor=#2563EB;fontColor=#60A5FA;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="60" y="70" width="280" height="130"/>
+        </mxCell>
+        <mxCell id="dev-ide" value="💻 VS Code / IntelliJ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1E3A5F;strokeColor=#60A5FA;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="dev-box">
+          <mxGeometry x="20" y="35" width="120" height="35"/>
+        </mxCell>
+        <mxCell id="dev-docker" value="🐳 Docker Desktop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1E3A5F;strokeColor=#60A5FA;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="dev-box">
+          <mxGeometry x="160" y="35" width="100" height="35"/>
+        </mxCell>
+        <mxCell id="dev-mvn" value="📦 mvn clean test + JaCoCo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1E3A5F;strokeColor=#60A5FA;fontColor=#93C5FD;fontSize=10;" vertex="1" parent="dev-box">
+          <mxGeometry x="20" y="80" width="240" height="35"/>
+        </mxCell>
+
+        <!-- Arrow push -->
+        <mxCell id="arrow-push" value="git push" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#F59E0B;fontSize=12;fontColor=#F59E0B;" edge="1" parent="1" source="dev-box" target="cicd-box">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="200" y="205" as="sourcePoint"/><mxPoint x="200" y="235" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- CI/CD -->
+        <mxCell id="cicd-box" value="&lt;b&gt;⚙️ GITHUB ACTIONS — CI/CD&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#42200633;strokeColor=#F59E0B;fontColor=#FCD34D;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="60" y="240" width="680" height="160"/>
+        </mxCell>
+        <mxCell id="cicd-c" value="1️⃣ mvn compile" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#78350F;strokeColor=#F59E0B;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="cicd-box">
+          <mxGeometry x="20" y="35" width="130" height="35"/>
+        </mxCell>
+        <mxCell id="cicd-t" value="2️⃣ mvn test" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#78350F;strokeColor=#F59E0B;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="cicd-box">
+          <mxGeometry x="180" y="35" width="130" height="35"/>
+        </mxCell>
+        <mxCell id="cicd-j" value="3️⃣ JaCoCo > 80%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#78350F;strokeColor=#F59E0B;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="cicd-box">
+          <mxGeometry x="340" y="35" width="130" height="35"/>
+        </mxCell>
+        <mxCell id="cicd-s" value="4️⃣ ✅ Slack" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#34D399;fontSize=10;" vertex="1" parent="cicd-box">
+          <mxGeometry x="20" y="90" width="130" height="35"/>
+        </mxCell>
+        <mxCell id="cicd-i" value="4️⃣ 🚨 Issue GitHub" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7F1D1D;strokeColor=#EF4444;fontColor=#FCA5A5;fontSize=10;" vertex="1" parent="cicd-box">
+          <mxGeometry x="180" y="90" width="130" height="35"/>
+        </mxCell>
+
+        <!-- Arrows to QA and PROD -->
+        <mxCell id="arrow-qa" value="Deploy a QA" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#F59E0B;fontSize=11;fontColor=#F59E0B;" edge="1" parent="1" source="cicd-box" target="qa-box">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="250" y="405" as="sourcePoint"/><mxPoint x="250" y="440" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-prod" value="Deploy a PROD" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=2;strokeColor=#F59E0B;fontSize=11;fontColor=#F59E0B;" edge="1" parent="1" source="cicd-box" target="prod-box">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="500" y="405" as="sourcePoint"/><mxPoint x="500" y="440" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- QA -->
+        <mxCell id="qa-box" value="&lt;b&gt;🧪 QA — Pruebas&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B33;strokeColor=#10B981;fontColor=#34D399;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="80" y="440" width="300" height="120"/>
+        </mxCell>
+        <mxCell id="qa-sb" value="🌐 Spring Boot" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="qa-box">
+          <mxGeometry x="20" y="40" width="120" height="30"/>
+        </mxCell>
+        <mxCell id="qa-bd" value="🗄️ PostgreSQL" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="qa-box">
+          <mxGeometry x="160" y="40" width="100" height="30"/>
+        </mxCell>
+        <mxCell id="qa-txt" value="Pruebas de integracion + Validacion de calidad" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#6EE7B7;" vertex="1" parent="qa-box">
+          <mxGeometry x="20" y="80" width="260" height="20"/>
+        </mxCell>
+
+        <!-- PROD -->
+        <mxCell id="prod-box" value="&lt;b&gt;🚀 PROD — Produccion&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A032E33;strokeColor=#7C3AED;fontColor=#A78BFA;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="420" y="440" width="300" height="120"/>
+        </mxCell>
+        <mxCell id="prod-sb" value="🌐 Spring Boot" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3B0764;strokeColor=#7C3AED;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="prod-box">
+          <mxGeometry x="20" y="40" width="120" height="30"/>
+        </mxCell>
+        <mxCell id="prod-bd" value="🗄️ PostgreSQL" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#3B0764;strokeColor=#7C3AED;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="prod-box">
+          <mxGeometry x="160" y="40" width="100" height="30"/>
+        </mxCell>
+        <mxCell id="prod-txt" value="Usuarios reales + Monitoreo continuo" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#C4B5FD;" vertex="1" parent="prod-box">
+          <mxGeometry x="20" y="80" width="260" height="20"/>
+        </mxCell>
+
+        <mxCell id="footer" value="Cada microservicio se despliega independientemente. CI/CD validado con JaCoCo (>80% cobertura). Slack + GitHub Issues automaticos." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#94A3B8;" vertex="1" parent="1">
+          <mxGeometry x="100" y="600" width="600" height="25"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

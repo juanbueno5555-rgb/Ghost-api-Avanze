@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Hexagonal - Auth" id="hexagonal">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="&lt;b&gt;ARQUITECTURA HEXAGONAL — Servicio de Identidad (Auth)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontColor=#4C1D95;" vertex="1" parent="1">
+          <mxGeometry x="100" y="10" width="600" height="30"/>
+        </mxCell>
+
+        <!-- Layer 1: Input Adapters -->
+        <mxCell id="input-layer" value="&lt;b&gt;ADAPTADORES DE ENTRADA (INPUT)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0C4A6E33;strokeColor=#0EA5E9;strokeColor=#0EA5E9;fontColor=#38BDF8;fontSize=13;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="70" width="700" height="100"/>
+        </mxCell>
+        <mxCell id="rest" value="🌐 AuthController&lt;br&gt;&lt;font style='font-size:9px'&gt;REST endpoints&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0C4A6E;strokeColor=#0EA5E9;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="input-layer">
+          <mxGeometry x="40" y="35" width="170" height="50"/>
+        </mxCell>
+        <mxCell id="security" value="🔒 JwtAuthFilter&lt;br&gt;&lt;font style='font-size:9px'&gt;Seguridad&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0C4A6E;strokeColor=#0EA5E9;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="input-layer">
+          <mxGeometry x="260" y="35" width="170" height="50"/>
+        </mxCell>
+        <mxCell id="exc" value="⚠️ GlobalExceptionHandler&lt;br&gt;&lt;font style='font-size:9px'&gt;Manejo errores&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0C4A6E;strokeColor=#0EA5E9;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="input-layer">
+          <mxGeometry x="480" y="35" width="170" height="50"/>
+        </mxCell>
+
+        <!-- Layer 2: Domain Core -->
+        <mxCell id="domain-layer" value="&lt;b&gt;🧠 DOMINIO (Core — CERO dependencias externas)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F59E0B15;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=13;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="220" width="700" height="160"/>
+        </mxCell>
+        <mxCell id="ports-in" value="📥 AuthUseCase&lt;br&gt;&lt;font style='font-size:9px'&gt;Puerto de entrada&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#78350F;strokeColor=#F59E0B;fontColor=#FDE047;fontSize=10;" vertex="1" parent="domain-layer">
+          <mxGeometry x="30" y="35" width="180" height="40"/>
+        </mxCell>
+        <mxCell id="ports-out" value="📤 UserRepository&lt;br&gt;&lt;font style='font-size:9px'&gt;Puerto de salida&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#78350F;strokeColor=#F59E0B;fontColor=#FDE047;fontSize=10;" vertex="1" parent="domain-layer">
+          <mxGeometry x="30" y="90" width="180" height="40"/>
+        </mxCell>
+        <mxCell id="auth-svc" value="⚙️ AuthService&lt;br&gt;&lt;font style='font-size:9px'&gt;Caso de uso puro&lt;br&gt;register() verify() login()&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B45309;strokeColor=#F59E0B;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="domain-layer">
+          <mxGeometry x="250" y="35" width="190" height="95"/>
+        </mxCell>
+        <mxCell id="models" value="📦 Modelos&lt;br&gt;&lt;font style='font-size:9px'&gt;User (POJO)&lt;br&gt;OtpCode (POJO)&lt;br&gt;RefreshToken (POJO)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#78350F;strokeColor=#F59E0B;fontColor=#FDE047;fontSize=10;" vertex="1" parent="domain-layer">
+          <mxGeometry x="480" y="35" width="180" height="95"/>
+        </mxCell>
+
+        <!-- Layer 3: Output Adapters -->
+        <mxCell id="output-layer" value="&lt;b&gt;ADAPTADORES DE SALIDA (OUTPUT)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#10B98115;strokeColor=#10B981;fontColor=#34D399;fontSize=13;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="430" width="700" height="100"/>
+        </mxCell>
+        <mxCell id="jpa-adapter" value="🗄️ JpaUserRepositoryAdapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="output-layer">
+          <mxGeometry x="40" y="35" width="160" height="40"/>
+        </mxCell>
+        <mxCell id="email-adapter" value="📧 ConsoleEmailAdapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="output-layer">
+          <mxGeometry x="240" y="35" width="160" height="40"/>
+        </mxCell>
+        <mxCell id="jwt-adapter" value="🔑 JwtTokenServiceAdapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="output-layer">
+          <mxGeometry x="440" y="35" width="160" height="40"/>
+        </mxCell>
+
+        <!-- DB -->
+        <mxCell id="db" value="🗄️ PostgreSQL" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#3B0764;strokeColor=#7C3AED;fontColor=#C084FC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="350" y="570" width="100" height="60"/>
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="ar1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=1;strokeColor=#38BDF8;" edge="1" parent="1" source="input-layer" target="domain-layer">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="400" y="175" as="sourcePoint"/><mxPoint x="400" y="215" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ar2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=1;strokeColor=#34D399;" edge="1" parent="1" source="domain-layer" target="output-layer">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="400" y="385" as="sourcePoint"/><mxPoint x="400" y="425" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ar3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeWidth=1;strokeColor=#34D399;" edge="1" parent="1" source="output-layer" target="db">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="400" y="535" as="sourcePoint"/><mxPoint x="400" y="565" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Rule box -->
+        <mxCell id="rule" value="&lt;b&gt;🔒 REGLA SAGRADA&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:9px'&gt;El DOMINIO NO puede importar:&lt;br&gt;Spring | Jakarta/JPA | Lombok&lt;br&gt;Solo Java puro + stdlib&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7F1D1D33;strokeColor=#EF4444;fontColor=#EF4444;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="770" y="250" width="170" height="100"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
