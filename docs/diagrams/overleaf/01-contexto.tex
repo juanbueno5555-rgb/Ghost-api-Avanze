@@ -1,0 +1,45 @@
+% Diagrama de Contexto - Tech Cup
+% Copia esto en Overleaf (overleaf.com) y compila con XeLaTeX
+
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, positioning}
+\usepackage{fontspec}
+
+\begin{document}
+\begin{tikzpicture}[
+  nodo/.style={draw, thick, minimum width=2.5cm, minimum height=1cm, align=center, font=\small},
+  actor/.style={ellipse, draw, thick, minimum width=2cm, minimum height=2cm, fill=#1, text=white},
+  sistema/.style={rectangle, rounded corners, draw, thick, minimum width=5cm, minimum height=3.5cm, fill=#1},
+  bd/.style={cylinder, shape border rotate=90, draw, thick, minimum width=2cm, minimum height=2.5cm, fill=#1, text=white, aspect=0.3},
+  email/.style={rectangle, rounded corners, draw, thick, fill=#1, text=white, minimum width=3cm},
+  flecha/.style={->, thick, >=stealth},
+  flechaDashed/.style={->, thick, dashed, >=stealth}
+]
+
+% Titulo
+\node[align=center, font=\large\bfseries, text=#4C1D95] at (6,7.5) {DIAGRAMA DE CONTEXTO --- Tech Cup};
+
+% Usuario
+\node[actor=#4C1D95] (user) at (1,3.5) {USUARIO};
+
+% Sistema
+\node[sistema=#F59E0B] (system) at (6,3.5) {\bfseries\Large TECH CUP\\[0.3cm]\normalsize API Gateway + 11 Microservicios};
+
+% BD
+\node[bd=#7C3AED] (db) at (10.5,3.5) {\bfseries PostgreSQL\\[0.2cm]\small x12 (1 por MS)};
+
+% Email
+\node[email=#10B981] (email) at (6, -0.5) {\bfseries\large Email (OTP)};
+
+% Flechas
+\draw[flecha] (user) -- (system);
+\draw[flecha] (system) -- (db);
+\draw[flecha] (system) -- (email);
+\draw[flechaDashed, #F59E0B] (email.west) -- ++(-1.5,0) |- (user.south) node[pos=0.3, left, font=\small, text=#F59E0B] {Recibe OTP};
+
+% Nota
+\node[align=center, font=\small\itshape, text=#F59E0B] at (6,6.5) {Cada microservicio tiene su propia BD PostgreSQL independiente};
+
+\end{tikzpicture}
+\end{document}

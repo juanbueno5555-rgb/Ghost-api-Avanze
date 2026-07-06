@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "records": [
+    { "id": "page:1", "typeName": "page", "props": { "name": "Contexto - Tech Cup" } },
+    { "id": "shape:title", "typeName": "shape", "props": { "geo": "text", "text": "DIAGRAMA DE CONTEXTO - Tech Cup", "w": 450, "h": 40, "x": 60, "y": 10, "color": "#4C1D95", "fontSize": 24, "fontWeight": "bold" } },
+    { "id": "shape:user", "typeName": "shape", "props": { "geo": "ellipse", "text": "USUARIO", "w": 120, "h": 120, "x": 20, "y": 200, "color": "#ffffff", "fill": "solid", "color": "#4C1D95" } },
+    { "id": "shape:system", "typeName": "shape", "props": { "geo": "rectangle", "text": "TECH CUP\nAPI Gateway + 11 MS", "w": 280, "h": 180, "x": 260, "y": 170, "color": "#1e1e1e", "fill": "solid", "color": "#F59E0B" } },
+    { "id": "shape:db", "typeName": "shape", "props": { "geo": "ellipse", "text": "PostgreSQL\nx12 (1 por MS)", "w": 140, "h": 120, "x": 640, "y": 200, "color": "#ffffff", "fill": "solid", "color": "#7C3AED" } }
+  ]
+}

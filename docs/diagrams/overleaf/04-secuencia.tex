@@ -1,0 +1,50 @@
+% Diagrama de Secuencia - Registro, OTP, Login, JWT
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgf-umlsd}
+
+\begin{document}
+\begin{sequencediagram}
+\tikzstyle{inststyle}+=[rounded corners, font=\small\bfseries]
+
+\newthread[#4C1D95]{user}{USUARIO}
+\newinst[#B45309]{gateway}{API GATEWAY}
+\newinst[#78350F]{auth}{AUTH SERVICE}
+\newinst[#3B0764]{db}{BD AUTH}
+\newinst[#0C4A6E]{jwt}{JWT}
+
+\begin{call}{user}{1. POST /register (email, pass)}{gateway}{}
+\end{call}
+\begin{call}{gateway}{Reenviar solicitud}{auth}{}
+\end{call}
+\begin{call}{auth}{Guardar user (verified=false)}{db}{OK}
+\end{call}
+\postlevel
+
+\begin{call}{auth}{Generar OTP 6 digitos}{auth}{}
+\end{call}
+\postlevel
+\draw[#10B981, dashed, ->, >=stealth] (user.south) -- ++(0,-0.3) node[right, font=\small, text=#10B981] {2. OTP enviado al email};
+\postlevel
+
+\begin{call}{user}{3. POST /verify-otp (token, codigo)}{gateway}{}
+\end{call}
+\begin{call}{gateway}{Validar OTP}{auth}{}
+\end{call}
+\begin{call}{auth}{Verificar OTP en BD}{db}{Valido}
+\end{call}
+\postlevel
+
+\begin{call}{auth}{user.verified = true}{db}{OK}
+\end{call}
+\postlevel
+
+\begin{call}{auth}{4. Generar JWT (access + refresh)}{jwt}{JWT + Refresh Token}
+\end{call}
+\postlevel
+
+\draw[#0EA5E9, ->, >=stealth] (jwt.south) -- ++(0,-0.5) node[right, font=\small, text=#0EA5E9] {JWT devuelto al usuario};
+\end{sequencediagram}
+
+\end{document}

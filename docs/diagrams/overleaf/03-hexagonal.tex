@@ -1,0 +1,51 @@
+% Arquitectura Hexagonal - Auth Service
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, positioning, fit}
+
+\begin{document}
+\begin{tikzpicture}[
+  capa/.style={rectangle, rounded corners, draw, thick, minimum width=14cm, minimum height=2cm, font=\bfseries, align=center},
+  mod/.style={rectangle, rounded corners, draw, thick, minimum width=2.5cm, minimum height=1.2cm, font=\small, align=center},
+  flecha/.style={->, thick, >=stealth, #1}
+]
+
+% Titulo
+\node[align=center, font=\large\bfseries, text=#4C1D95] at (7,8) {ARQUITECTURA HEXAGONAL --- Servicio de Identidad (Auth)};
+
+% CAPA 1: INPUT
+\node[capa, draw=#0EA5E9, fill=#0C4A6E33, text=#38BDF8, dashed] (input) at (7,6) {ADAPTADORES DE ENTRADA (INPUT)};
+\node[mod, draw=#0EA5E9, fill=#0C4A6E, text=white] at (3,6) {AuthController\\\tiny REST endpoints};
+\node[mod, draw=#0EA5E9, fill=#0C4A6E, text=white] at (7,6) {JwtAuthFilter\\\tiny Seguridad};
+\node[mod, draw=#0EA5E9, fill=#0C4A6E, text=white] at (11,6) {GlobalExceptionHandler\\\tiny Manejo errores};
+
+% CAPA 2: DOMAIN
+\node[capa, draw=#F59E0B, fill=#F59E0B15, text=#F59E0B, minimum height=3.5cm] (domain) at (7,2.5) {DOMINIO (Core --- CERO dependencias externas)};
+\node[mod, draw=#F59E0B, fill=#78350F, text=#FDE047, minimum width=3cm] at (3,1.8) {Puertos\\ AuthUseCase\\ UserRepository\\ OtpCodeRepository};
+\node[mod, draw=#F59E0B, fill=#B45309, text=white, minimum width=3.5cm, minimum height=1.8cm] at (7,2) {AuthService\\\tiny register() / verify() / login()\\\tiny Caso de uso puro};
+\node[mod, draw=#F59E0B, fill=#78350F, text=#FDE047, minimum width=3cm] at (11,1.8) {Modelos\\ User (POJO)\\ OtpCode (POJO)\\ RefreshToken (POJO)};
+\node[align=center, font=\tiny, text=#FDE047] at (7,0.3) {Otros puertos: EmailSender, PasswordEncoder, JwtTokenService};
+
+% Flecha 1
+\draw[flecha=#38BDF8] (input.south) -- (domain.north);
+
+% CAPA 3: OUTPUT
+\node[capa, draw=#10B981, fill=#10B98115, text=#34D399, dashed] (output) at (7,-1.5) {ADAPTADORES DE SALIDA (OUTPUT)};
+\node[mod, draw=#10B981, fill=#064E3B, text=white] at (3,-1.5) {JpaUserRepositoryAdapter};
+\node[mod, draw=#10B981, fill=#064E3B, text=white] at (7,-1.5) {ConsoleEmailAdapter};
+\node[mod, draw=#10B981, fill=#064E3B, text=white] at (11,-1.5) {JwtTokenServiceAdapter};
+
+% Flecha 2
+\draw[flecha=#34D399] (domain.south) -- (output.north);
+
+% DB
+\node[cylinder, shape border rotate=90, draw, thick, fill=#3B0764, text=#C084FC, minimum width=2cm, minimum height=1.5cm, aspect=0.4] (db) at (7,-3.5) {PostgreSQL};
+
+% Flecha 3
+\draw[flecha=#34D399] (output.south) -- (db.north);
+
+% Regla
+\node[rectangle, rounded corners, draw=#EF4444, thick, fill=#7F1D1D33, minimum width=4cm, minimum height=2.5cm, text=#EF4444, font=\bfseries\small, align=center] at (15,2.5) {REGL\\[0.3cm]\normalsize El DOMINIO NO\\ puede importar:\\ Spring, JPA,\\ Lombok.\\ Solo Java puro.};
+
+\end{tikzpicture}
+\end{document}
